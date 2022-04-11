@@ -20,11 +20,11 @@ RSpec.describe "Merchant Items Edit Page" do
   end
 
   it "when the form is filled out and submitted, the user is redirected to the show page and the updated info is shown" do
-    visit "/merchants/#{@merchant1.id}/items/#{@item2.id}//edit"
+    visit "/merchants/#{@merchant1.id}/items/#{@item2.id}/edit"
 
     within("#update_item") do
       fill_in "unit_price", with: 12345
-      click_on "Update Item"
+      click_on "Submit"
     end
     expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item2.id}")
     @item2.reload
