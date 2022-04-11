@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Merchant Items Show Page" do
+RSpec.describe "Merchant Item Create Page" do
   before(:each) do
     @merchant1 = Merchant.create!(name: "Klein, Rempel and Jones")
     @merchant2 = Merchant.create!(name: "Williamson Group")
@@ -11,23 +11,20 @@ RSpec.describe "Merchant Items Show Page" do
     @item4 = @merchant2.items.create!(name: "Item Rerum Est", description: "A thing that barks", unit_price: 3455)
     @item5 = @merchant2.items.create!(name: "Item Itaque Consequatur", description: "A thing that makes noise", unit_price: 7900)
   end
-  describe "when I visit this page " do
-    it "has the items listed with of of its attribues" do
-      visit "/merchants/#{@merchant1.id}/items"
 
-      click_on "Item Quo Magnam"
+  it "has a form for new item, and redirects to merchant items index with new item listed" do
+    visit "merchants/#{@merchant1.id}/items/new"
 
-      expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item2.id}")
-      expect(page).to have_content(@item2.name)
-      expect(page).to have_content(@item2.description)
-      expect(page).to have_content(@item2.unit_price)
-      expect(page).to_not have_content(@item4.name)
+    within("#create_item") do
+      fill_in "Name:", with: "Item Ea Voluptatum"
+      fill_in "Description", with: "A thing that does things"
+      fill_in "Unit Price:", with: 7654
+      click_button "Submit"
     end
-    it "has a link to update item information" do
-      visit "/merchants/#{@merchant1.id}/items/#{@item2.id}"
-      expect(page).to have_link("Update #{@item2.name}")
-      click_on "Update #{@item2.name}"
-      expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item2.id}/edit")
+    expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
+
+    within("div.item_#{@merchant1.items.last.id}") do
+      expect(page).to have_content("Item Ea Voluptatum")
     end
   end
 end
