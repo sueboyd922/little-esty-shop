@@ -1,7 +1,7 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe 'merchants items index page', type: :feature do
-  before (:each) do
+RSpec.describe "merchants items index page", type: :feature do
+  before(:each) do
     @merchant1 = Merchant.create!(name: "Klein, Rempel and Jones")
     @merchant2 = Merchant.create!(name: "Williamson Group")
 
@@ -12,12 +12,20 @@ RSpec.describe 'merchants items index page', type: :feature do
     @item5 = @merchant2.items.create!(name: "Item Itaque Consequatur", description: "A thing that makes noise", unit_price: 7900)
   end
 
-  it 'has all the names of a merchants items' do
+  it "has all the names of a merchants items" do
     visit "merchants/#{@merchant1.id}/items"
     expect(page).to have_content(@item1.name)
     expect(page).to have_content(@item2.name)
     expect(page).to have_content(@item3.name)
     expect(page).not_to have_content(@item4.name)
     expect(page).not_to have_content(@item5.name)
+  end
+
+  it "has a link to create a new item" do
+    visit "/merchants/#{@merchant1.id}/items"
+
+    click_link("Create New Item")
+
+    expect(current_path).to eq("/merchants/#{@merchant1.id}/items/new")
   end
 end
