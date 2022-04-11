@@ -28,14 +28,6 @@ RSpec.describe "Merchant Items Show Page" do
       expect(page).to have_link("Update #{@item2.name}")
       click_on "Update #{@item2.name}"
       expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item2.id}/edit")
-      expect(page).to have_field(@item2.unit_price, with: 10099)
-
-      within("#update_item") do
-        fill_in "unit_price", with: 12345
-        click_on "Submit"
-      end
-      expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item2.id}")
-      expect(page).to have_content("Item Successfully Updated")
     end
   end
 end
