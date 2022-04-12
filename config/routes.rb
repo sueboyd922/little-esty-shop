@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-
+  get "/admin", to: "admin#show"
   get "merchants/:merchant_id/dashboard", to: "merchants#show"
   get "merchants/:merchant_id/items", to: "items#index"
   get "merchants/:merchant_id/items/new", to: "items#new"
@@ -15,4 +15,8 @@ Rails.application.routes.draw do
   patch 'merchants/:merchant_id/items', to: 'items#update'
   patch "merchants/:merchant_id/items/:item_id", to: "items#update"
 
+  namespace :admin do
+    resources :merchants, only: [:index, :show, :new, :create, :update]
+    resources :invoices, only: [:index, :show, :update]
+  end
 end
