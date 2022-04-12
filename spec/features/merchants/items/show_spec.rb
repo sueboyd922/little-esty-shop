@@ -15,6 +15,7 @@ RSpec.describe "Merchant Items Show Page" do
     it "has the items listed with of of its attribues" do
       visit "/merchants/#{@merchant1.id}/items"
 
+
       click_on "Item Quo Magnam"
 
       expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item2.id}")

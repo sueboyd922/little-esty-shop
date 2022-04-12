@@ -23,8 +23,8 @@ RSpec.describe "Merchant Item Create Page" do
     end
     expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
 
-    within("div.item_#{@merchant1.items.last.id}") do
+   # within("div.item_#{@merchant1.items.last.id}") do  #no longer needed as enabled/disabled shows name links
       expect(page).to have_content("Item Ea Voluptatum")
-    end
+    #end
   end
 end
