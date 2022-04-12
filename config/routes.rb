@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post "merchants/:merchant_id/items", to: "items#create"
   get 'merchants/:merchant_id/invoices/:invoice_id', to: 'invoices#show'
 
+
   patch 'merchants/:merchant_id/items', to: 'items#update'
   patch "merchants/:merchant_id/items/:item_id", to: "items#update"
 
