@@ -1,23 +1,26 @@
 class ItemsController < ApplicationController
 
-
   def index
     @merchant = Merchant.find(params[:merchant_id])
   end
-
 
   def update
     @merchant = Merchant.find(params[:merchant_id])
     if !params[:enable].nil?
       item = Item.find(params[:enable])
       item.update(status: 0)
+      redirect_to "/merchants/#{@merchant.id}/items"
     elsif !params[:disable].nil?
       item = Item.find(params[:disable])
       item.update(status: 1)
+      redirect_to "/merchants/#{@merchant.id}/items"
+    else
+      item = Item.find(params[:item_id])
+      item.update(item_params)
+      redirect_to "/merchants/#{@merchant.id}/items/#{item.id}", notice: "Item Successfully Updated"
     end
-    redirect_to "/merchants/#{@merchant.id}/items"
   end
-  
+
   def show
     @merchant = Merchant.find(params[:merchant_id])
     @item = Item.find(params[:item_id])
@@ -26,13 +29,6 @@ class ItemsController < ApplicationController
   def edit
     @merchant = Merchant.find(params[:merchant_id])
     @item = Item.find(params[:item_id])
-  end
-
-  def update
-    merchant = Merchant.find(params[:merchant_id])
-    item = Item.find(params[:item_id])
-    item.update(item_params)
-    redirect_to "/merchants/#{merchant.id}/items/#{item.id}", notice: "Item Successfully Updated"
   end
 
   def new
