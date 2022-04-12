@@ -34,7 +34,7 @@ RSpec.describe "merchants items index page", type: :feature do
     visit "/merchants/#{@merchant1.id}/items"
 
     expect(@item1.status).to eq("enabled")
-    #
+    
     within ".item-#{@item1.id}" do
       click_on "Disable"
     end
