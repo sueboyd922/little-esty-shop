@@ -5,4 +5,8 @@ class Invoice < ApplicationRecord
   has_many :transactions
 
   enum status: {"cancelled" => 0, "in progress" => 1, "completed" => 2}
+
+  def self.not_completed
+    where(invoices: {status: 1}).order(created_at: :asc)
+  end
 end
