@@ -6,6 +6,10 @@ class Invoice < ApplicationRecord
 
   enum status: {"cancelled" => 0, "in progress" => 1, "completed" => 2}
 
+
+  def self.not_completed
+    where(invoices: {status: 1}).order(created_at: :asc)
+  end
   def total_revenue
     invoice_items.sum("unit_price * quantity").to_f/100
   end
