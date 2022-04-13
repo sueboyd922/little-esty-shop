@@ -9,7 +9,7 @@ RSpec.describe 'admin invoices show page' do
     @invoice3 = @customer.invoices.create!(status: 0)
     @invoice4 = @customer2.invoices.create!(status: 2)
 
-    today = Time.now.strftime("%A, %B @d, @Y")
+    today = Time.now.strftime("%A, %B %d, %Y")
 
     visit "admin/invoices/#{@invoice1.id}"
 
