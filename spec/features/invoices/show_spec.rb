@@ -33,14 +33,31 @@ RSpec.describe 'invoice show page' do
 
   it "display invoice item information on the invoice show page" do
     visit "/merchants/#{@merchant1.id}/invoices/#{@invoice3.id}"
-
-    expect(page).to have_content(@invoice_item4.quantity)
-    expect(page).to have_content(@invoice_item4.unit_price)
-    expect(page).to have_content(@invoice_item4.status)
-    expect(page).to have_content(@item4.name)
+    within("#invoice_item-#{@invoice_item4.id}") do
+      expect(page).to have_content(@invoice_item4.quantity)
+      expect(page).to have_content(@invoice_item4.unit_price)
+      expect(find_field('status').value).to eq(@invoice_item4.status)
+      expect(page).to have_content(@item4.name)
+    end
     expect(page).to have_no_content(@item3.name)
     expect(page).to have_no_content(@item2.name)
     expect(page).to have_no_content(@item1.name)
   end
   
+  it 'displays the total revenue that will be generated from all items on the invoice' do 
+    visit "/merchants/#{@merchant1.id}/invoices/#{@invoice2.id}"
+
+    expect(page).to have_content('$6323.01')
+  end
+
+  it 'can update invoice item status via a select field' do 
+    visit "/merchants/#{@merchant1.id}/invoices/#{@invoice2.id}"
+    within("#invoice_item-#{@invoice_item2.id}") do 
+      expect(find_field('status').value).to eq('packaged')
+      select 'Shipped'
+      click_button 'Update Item Status'
+      expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice2.id}")
+      expect(find_field('status').value).to eq('shipped')
+    end
+  end
 end
