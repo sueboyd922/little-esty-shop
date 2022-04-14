@@ -34,6 +34,18 @@ RSpec.describe Merchant, type: :model do
     end
     describe 'enabled/disabled items' do
       before (:each) do
+        #FactoryBot.create_list(:merchant, 3) 
+       # @merchant1 = Merchant.all.first
+       # FactoryBot.create_list(:item, 5, merchant_id: @merchant1.id) 
+        # FactoryBot.create_list(:item, 5) 
+        require 'pry'; binding.pry
+
+
+
+
+
+
+
         @merchant1 = Merchant.create!(name: "Klein, Rempel and Jones")
         @merchant2 = Merchant.create!(name: "Williamson Group")
 
