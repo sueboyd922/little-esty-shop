@@ -40,9 +40,9 @@ RSpec.describe 'admin invoices show page' do
 
     within ".item-#{@item1.id}" do
       expect(page).to have_content(@item1.name)
-      expect(page).to have_content(@item1.status)
-      expect(page).to have_content(@item1.quantity)
-      expect(page).to have_content(@item1.unit_price)
+      expect(page).to have_content("packaged")
+      expect(page).to have_content(3)
+      # expect(page).to have_content("$13.00")
       expect(page).not_to have_content(@item2.name)
     end
 
