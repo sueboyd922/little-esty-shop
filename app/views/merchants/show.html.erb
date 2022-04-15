@@ -8,7 +8,7 @@
 <% @merchant.top_5_customers.each do |customer|%>
 	<section id = "top_5-<%= customer.id %>">
 		<p><%= customer.first_name %> <%= customer.last_name %>, 
-			Number of Successful Transactions: <%= customer.successful_transactions_count %></p>
+			Number of Successful Transactions: <%= customer.transaction_count %></p>
 	</section>
 <% end %>
 <br>
