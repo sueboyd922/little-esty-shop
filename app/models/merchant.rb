@@ -2,7 +2,7 @@ class Merchant < ApplicationRecord
   has_many :items
   has_many :invoice_items, through: :items
   has_many :invoices, through: :invoice_items
-  has_many :customers, through: :invoices, source: :invoice_items
+  has_many :customers, through: :invoices
   has_many :transactions, through: :invoices
   
   validates_presence_of(:name)
@@ -19,4 +19,12 @@ class Merchant < ApplicationRecord
     items.where(status: 1)
   end
 
+  def top_5_customers
+     customers.joins(:transactions)
+             .where('transactions.result = 0 AND invoices.status = 2')
+             .select("customers.*, count(transactions.*) as transaction_count")
+             .group(:id)
+             .order(transaction_count: :desc)
+             .limit(5)
+  end
 end

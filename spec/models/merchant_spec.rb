@@ -34,18 +34,6 @@ RSpec.describe Merchant, type: :model do
     end
     describe 'enabled/disabled items' do
       before (:each) do
-        #FactoryBot.create_list(:merchant, 3) 
-       # @merchant1 = Merchant.all.first
-       # FactoryBot.create_list(:item, 5, merchant_id: @merchant1.id) 
-        # FactoryBot.create_list(:item, 5) 
-        require 'pry'; binding.pry
-
-
-
-
-
-
-
         @merchant1 = Merchant.create!(name: "Klein, Rempel and Jones")
         @merchant2 = Merchant.create!(name: "Williamson Group")
 
@@ -66,5 +54,48 @@ RSpec.describe Merchant, type: :model do
         expect(@merchant2.disabled_items).to eq([])
       end
     end
+
+      describe '.top_5_customers' do 
+        it 'returns top-5 customers with most successful transactions' do 
+          merchant1 = Merchant.create!(name: "Klein, Rempel and Jones")
+          item1 = FactoryBot.create_list(:item, 1, merchant_id: merchant1.id)[0]
+          FactoryBot.create_list(:customer, 7) 
+          cust1 = Customer.all[0]
+          cust2 = Customer.all[1]
+          cust3 = Customer.all[2]
+          cust4 = Customer.all[3]
+          cust5 = Customer.all[4]
+          cust6 = Customer.all[5]
+          cust7 = Customer.all[6]
+          
+          invoice1 = FactoryBot.create_list(:invoice, 1, customer_id: cust5.id, status: 2)[0]
+          invoice2 = FactoryBot.create_list(:invoice, 1, customer_id: cust3.id, status: 2)[0]
+          invoice3 = FactoryBot.create_list(:invoice, 1, customer_id: cust1.id, status: 2)[0]
+          invoice4 = FactoryBot.create_list(:invoice, 1, customer_id: cust6.id, status: 2)[0]
+          invoice5 = FactoryBot.create_list(:invoice, 1, customer_id: cust7.id, status: 0)[0]
+          invoice6 = FactoryBot.create_list(:invoice, 1, customer_id: cust2.id, status: 2)[0]
+          invoice7 = FactoryBot.create_list(:invoice, 1, customer_id: cust4.id, status: 2)[0]
+
+          FactoryBot.create_list(:invoice_item, 1, item_id: item1.id, invoice_id: invoice1.id)
+          FactoryBot.create_list(:invoice_item, 1, item_id: item1.id, invoice_id: invoice2.id)
+          FactoryBot.create_list(:invoice_item, 1, item_id: item1.id, invoice_id: invoice3.id)
+          FactoryBot.create_list(:invoice_item, 1, item_id: item1.id, invoice_id: invoice4.id)
+          FactoryBot.create_list(:invoice_item, 1, item_id: item1.id, invoice_id: invoice5.id)
+          FactoryBot.create_list(:invoice_item, 1, item_id: item1.id, invoice_id: invoice6.id)
+          FactoryBot.create_list(:invoice_item, 1, item_id: item1.id, invoice_id: invoice7.id)
+
+
+          FactoryBot.create_list(:transaction, 10, invoice_id: invoice1.id, result: 0) 
+          FactoryBot.create_list(:transaction, 8, invoice_id: invoice2.id, result: 0) 
+          FactoryBot.create_list(:transaction, 7, invoice_id: invoice3.id, result: 0) 
+          FactoryBot.create_list(:transaction, 6, invoice_id: invoice4.id, result: 0) 
+          FactoryBot.create_list(:transaction, 4, invoice_id: invoice5.id, result: 0) 
+          FactoryBot.create_list(:transaction, 2, invoice_id: invoice6.id, result: 0) 
+          FactoryBot.create_list(:transaction, 1, invoice_id: invoice7.id, result: 0) 
+          
+
+          expect(merchant1.top_5_customers).to eq([cust5, cust3, cust1, cust6, cust2])
+       end
+     end
   end
 end
