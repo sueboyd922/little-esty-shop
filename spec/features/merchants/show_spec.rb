@@ -101,7 +101,7 @@ RSpec.describe 'merchant show page' do
         FactoryBot.create_list(:transaction, 1, invoice_id: invoice7.id, result: 0) 
        
 		visit "/merchants/#{@merchant1.id}/dashboard"
-       save_and_open_page
+      
 		within("#top_5-#{cust5.id}") do 
 			expect(page).to have_content(cust5.first_name)
 			expect(page).to have_content(cust5.last_name)
