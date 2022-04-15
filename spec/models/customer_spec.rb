@@ -4,6 +4,7 @@ RSpec.describe Customer, type: :model do
 
   describe 'associations' do
 	  it {should have_many :invoices}
+    it { should have_many(:transactions).through(:invoices)}
   end
 
   describe 'validations' do
@@ -11,4 +12,5 @@ RSpec.describe Customer, type: :model do
     it { should validate_presence_of(:last_name)}
   end
 
+ 
 end

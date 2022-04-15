@@ -3,6 +3,16 @@
 <%= link_to "My Items", "/merchants/#{@merchant.id}/items" %>
 <%= link_to "My Invoices", "/merchants/#{@merchant.id}/invoices" %>
 
+
+<h3>Top 5 Customers:</h3>
+<% @merchant.top_5_customers.each do |customer|%>
+	<section id = "top_5-<%= customer.id %>">
+		<p><%= customer.first_name %> <%= customer.last_name %>, 
+			Number of Successful Transactions: <%= customer.transaction_count %></p>
+	</section>
+<% end %>
+<br>
+
 <section id = 'items_to_ship'>
 <h3>Items Ready to Ship:</h3>
 <% @merchant.items_ready_to_ship.each_with_index do |invoice_item, index| %>
