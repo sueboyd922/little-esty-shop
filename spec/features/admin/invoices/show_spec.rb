@@ -42,7 +42,7 @@ RSpec.describe 'admin invoices show page' do
       expect(page).to have_content(@item1.name)
       expect(page).to have_content("packaged")
       expect(page).to have_content(3)
-      # expect(page).to have_content("$13.00")
+      expect(page).to have_content("$13.00")
       expect(page).not_to have_content(@item2.name)
     end
 
@@ -50,7 +50,7 @@ RSpec.describe 'admin invoices show page' do
       expect(page).to have_content(@item2.name)
       expect(page).to have_content("pending")
       expect(page).to have_content(2)
-      # expect(page).to have_content("$24.50")
+      expect(page).to have_content("$24.50")
       expect(page).not_to have_content(@item1.name)
     end
 

@@ -11,7 +11,7 @@
 <div class="item-<%=invoice_item.item.id%>">
   <p>Item Name: <%=invoice_item.item.name%></p>
   <p>Quantity: <%=invoice_item.quantity %></p>
-  <p>Sold For: $<%=invoice_item.unit_price.to_f/100.round(2)%></p>
+  <p>Sold For: $<%='%.02f' % (invoice_item.unit_price.to_f/100)%></p>
   <p>Status: <%= invoice_item.status %></p>
 </div>
 <% end %>
