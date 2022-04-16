@@ -19,4 +19,16 @@ RSpec.describe InvoiceItem, type: :model do
     let!(:status) { %i[packaged pending shipped]}
   end
 
+  describe 'instance methods' do
+    describe '.sold_at' do 
+      it 'formats the sold_at unit_price to bigdecimal in dollars' do 
+        item = FactoryBot.create_list(:item, 1)[0]
+        invoice = FactoryBot.create_list(:invoice, 1)[0]
+        invoice_item = FactoryBot.create_list(:invoice_item, 1, invoice_id: invoice.id, item_id: item.id, unit_price: 1000)[0]
+
+        expect(invoice_item.sold_at).to eq(10.00.to_d)
+      end
+    end
+  end
+
 end
