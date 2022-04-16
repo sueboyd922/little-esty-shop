@@ -1,8 +1,8 @@
 require "rails_helper"
 
-RSpec.describe "the admin merchants page" do
+RSpec.describe "the admin merchants edit page" do
   it "edits an existing merchant" do
-    visit edit_admin_merchant
+    visit edit_admin_merchant_path
 
     fill_in 'Name', with: 'Something new'
     click_button 'Submit'
