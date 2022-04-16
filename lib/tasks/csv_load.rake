@@ -7,10 +7,8 @@ namespace :csv_load do
     CSV.foreach('./db/data/merchants.csv', headers: true) do |row|
       Merchant.create!(row.to_h)
     end
-
     table = 'merchants'
-    auto_inc_val = 101
-    ActiveRecord::Base.connection.execute("ALTER SEQUENCE #{table}_id_seq RESTART WITH #{auto_inc_val}")
+    ActiveRecord::Base.connection.reset_pk_sequence!(table)
   end
 
   task invoice_items: :environment do
@@ -67,11 +65,13 @@ namespace :csv_load do
     auto_inc_val = 1001
     ActiveRecord::Base.connection.execute("ALTER SEQUENCE #{table}_id_seq RESTART WITH #{auto_inc_val}")
   end
-  
+
   task :all do
     tables = [:customers, :merchants, :invoices, :items, :invoice_items, :transactions]
     tables.each do |table|
       Rake::Task["csv_load:#{table}"].invoke
+      ActiveRecord::Base.connection.reset_pk_sequence!(table)
     end
+    require "pry"; binding.pry
   end
 end
