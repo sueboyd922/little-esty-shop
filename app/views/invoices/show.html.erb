@@ -12,7 +12,7 @@
   <section id = "invoice_item-<%= invoice_item.id %>">
     <p>Item Name: <%= item.name %></p>
     <p>Item Quantity Ordered: <%= invoice_item.quantity %></p>
-    <p>Item Sold For: <%= (invoice_item.unit_price) %></p>
+    <p>Item Sold For: <%= (invoice_item.sold_at) %></p>
     <div class = 'status'>
     <%= form_with url: "/merchants/#{item.merchant.id}/invoice_items/#{invoice_item.id}", method: :patch, local:true do |f| %>
     <%= f.label :time_balance, "Invoice Item Status"%>

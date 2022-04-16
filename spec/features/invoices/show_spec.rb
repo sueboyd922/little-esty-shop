@@ -35,7 +35,7 @@ RSpec.describe 'invoice show page' do
     visit "/merchants/#{@merchant1.id}/invoices/#{@invoice3.id}"
     within("#invoice_item-#{@invoice_item4.id}") do
       expect(page).to have_content(@invoice_item4.quantity)
-      expect(page).to have_content(@invoice_item4.unit_price)
+      expect(page).to have_content(@invoice_item4.sold_at)
       expect(find_field('status').value).to eq(@invoice_item4.status)
       expect(page).to have_content(@item4.name)
     end
