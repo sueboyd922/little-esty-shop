@@ -80,7 +80,6 @@ RSpec.describe 'admin invoices show page' do
     visit "/admin/invoices/#{invoice.id}"
     save_and_open_page
     expect(page).to have_content("Total Revenue: $2147.30")
-    expect(page).not_to have_content("Total Revenue: $2147.3")
     expect(page).not_to have_content("Total Revenue: $2248.70")
 
     visit "/admin/invoices/#{invoice2.id}"
