@@ -4,7 +4,7 @@ class Merchant < ApplicationRecord
   has_many :invoices, through: :invoice_items
   has_many :customers, through: :invoices
   has_many :transactions, through: :invoices
-  
+
   validates_presence_of(:name)
 
   def items_ready_to_ship
@@ -20,11 +20,33 @@ class Merchant < ApplicationRecord
   end
 
   def top_5_customers
-     customers.joins(:transactions)
-             .where('transactions.result = 0 AND invoices.status = 2')
-             .select("customers.*, count(transactions.*) as transaction_count")
-             .group(:id)
-             .order(transaction_count: :desc)
-             .limit(5)
+    customers.joins(:transactions)
+      .where("transactions.result = 0 AND invoices.status = 2")
+      .select("customers.*, count(transactions.*) as transaction_count")
+      .group(:id)
+      .order(transaction_count: :desc)
+      .limit(5)
   end
+
+  def popular_items
+    items.joins(invoice_items: {invoice: :transactions})
+      .where(transactions: {result: 0})
+      .select("items.*, SUM( invoice_items.unit_price * invoice_items.quantity)  AS totalrevenue")
+      .group(:id)
+      .order(totalrevenue: :desc)
+      .limit(5)
+  end
+
+  # def popular_items(item_count = 5)
+  #   if item_count > items.count
+  #     item_count = items.count
+  #   end
+  #
+  #   items.joins(:transactions)
+  #     .select("items.*")
+  #     .merge(Transaction.successful)
+  #     .merge(InvoiceItem.grouped_total_revenue)
+  #     .order(revenue: :desc)
+  #     .limit(item_count)
+  # end
 end
