@@ -9,9 +9,13 @@
 <h3>Items</h3>
 <% @invoice.invoice_items.each do |invoice_item| %>
 <div class="item-<%=invoice_item.item.id%>">
-  <p>Item Name: <%=invoice_item.item.name%></p>
-  <p>Quantity: <%=invoice_item.quantity %></p>
-  <p>Sold For: $<%='%.02f' % (invoice_item.unit_price.to_f/100)%></p>
-  <p>Status: <%= invoice_item.status %></p>
+
+  <p><strong>Item Name:</strong> <%=invoice_item.item.name%></p>
+  <p><strong>Quantity:</strong> <%=invoice_item.quantity %></p>
+  <p><strong>Sold For:</strong> $<%='%.02f' % (invoice_item.unit_price.to_f/100)%></p>
+  <p><strong>Status:</strong> <%= invoice_item.status %></p>
+  <br/>
 </div>
 <% end %>
+
+<p><strong>Total Revenue: $<%= '%.2f' % @invoice.total_revenue%></p>
