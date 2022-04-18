@@ -10,8 +10,4 @@ class InvoiceItem < ApplicationRecord
 
   enum status: {"packaged" => 0, "pending" => 1, "shipped" => 2}
 
-  def sold_at
-    BigDecimal(unit_price.to_f/100, 5)
-  end
-
 end
