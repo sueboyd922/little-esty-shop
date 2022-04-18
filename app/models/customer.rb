@@ -10,6 +10,6 @@ class Customer < ApplicationRecord
    .distinct.select("customers.*, count(transactions) as num_of_transactions")
    .group("customers.id")
    .order(num_of_transactions: :desc)
-   # require "pry"; binding.pry
+   .limit(5)
  end
 end

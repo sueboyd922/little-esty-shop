@@ -11,8 +11,8 @@
     </tr>
     <% @top_5_customers.each do |customer| %>
       <div class="cust-<%= customer.id %>">
-        <tr> <%= customer.name %></tr>
-        <tr> <%= customer.num_successful_transactions %></tr>
+        <tr> <%= customer.first_name %> <%= customer.last_name %></tr>
+        <tr> <%= customer.num_of_transactions %></tr>
       </div>
       <% end %>
   </table>

@@ -94,6 +94,13 @@ RSpec.describe "the admin dashboard" do
     invoice_24 = FactoryBot.create_list(:invoice, 1, customer: customer_2).first
     invoice_25 = FactoryBot.create_list(:invoice, 1, customer: customer_6).first
 
+    # FactoryBot.create_list(:invoice, 8, customer: customer_1)
+    # 3.times do
+    #   FactoryBot.create_list(:transaction, 3, invoice: customer_1.invoices.sample, result: 1)
+    # end
+    # customer_1.invoices.each do |invoice|
+    #   FactoryBot.create_list(:transaction, 1, invoice: invoice, result: 0)
+    # end
 
     #customer_1 transactions total 7, 5 success
     FactoryBot.create_list(:transaction, 1, invoice: invoice_0, result: 1)
@@ -136,28 +143,28 @@ RSpec.describe "the admin dashboard" do
     FactoryBot.create_list(:transaction, 1, invoice: invoice_19, result: 0)
     FactoryBot.create_list(:transaction, 1, invoice: invoice_20, result: 0)
     FactoryBot.create_list(:transaction, 1, invoice: invoice_21, result: 0)
-    require "pry"; binding.pry
+
     visit "/admin"
     expect(page).to have_content("Top 5 Customers")
     within ".cust-#{customer_6.id}" do
-      expect(page).to have_content(customer_6.name)
+      expect(page).to have_content(customer_6.last_name)
       expect(page).to have_content(4)
     end
     within ".cust-#{customer_7.id}" do
-      expect(page).to have_content(customer_3.name)
+      expect(page).to have_content(customer_7.last_name)
       expect(page).to have_content(6)
     end
     within ".cust-#{customer_1.id}" do
-      expect(page).to have_content(customer_1.name)
+      expect(page).to have_content(customer_1.last_name)
       expect(page).to have_content(5)
     end
     within ".top-customers" do
-      expect(customer_7.name).to appear_before(customer_1.name)
-      expect(customer_1.name).to appear_before(customer_6.name)
-      expect(customer_6.name).to appear_before(customer_2.name)
-      expect(customer_2.name).to appear_before(customer_4.name)
-      expect(page).not_to have_content(customer_3.name)
-      expect(page).not_to have_content(customer_5.name)
+      expect(customer_7.first_name).to appear_before(customer_1.first_name)
+      expect(customer_1.first_name).to appear_before(customer_6.first_name)
+      expect(customer_6.first_name).to appear_before(customer_2.first_name)
+      expect(customer_2.first_name).to appear_before(customer_4.first_name)
+      expect(page).not_to have_content(customer_3.first_name)
+      expect(page).not_to have_content(customer_5.first_name)
     end
   end
 
