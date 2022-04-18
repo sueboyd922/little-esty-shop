@@ -57,12 +57,6 @@ RSpec.describe "the admin dashboard" do
     customer_6 = Customer.all[5]
     customer_7 = Customer.all[6]
 
-    merchant = FactoryBot.create_list(:merchant, 1).first
-
-    FactoryBot.create_list(:item, 2, merchant: merchant)
-    item_1 = Item.all[0]
-    item_2 = Item.all[1]
-
     Customer.all.each do |customer|
       FactoryBot.create_list(:invoice, 2, customer: customer)
     end

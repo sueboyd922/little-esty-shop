@@ -6,14 +6,14 @@
   <h2>Top 5 Customers </h2>
   <table>
     <tr>
-      <th> Name </th>
-      <th> Successful Transactions </th>
+      <th> Customer Name </th>
+      <th> No. Transactions </th>
     </tr>
     <% @top_5_customers.each do |customer| %>
-      <div class="cust-<%= customer.id %>">
-        <tr> <%= customer.first_name %> <%= customer.last_name %></tr>
-        <tr> <%= customer.num_of_transactions %></tr>
-      </div>
+      <tr class="cust-<%= customer.id %>">
+        <td> <%= customer.first_name %> <%= customer.last_name %></td>
+        <td> <%= customer.num_of_transactions %></td>
+      </tr>
       <% end %>
   </table>
 </section>
