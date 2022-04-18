@@ -1,4 +1,9 @@
-<h1>All Invoices</h1>
+<h1>All Invoices</h1> 
+<% count = 1 %>
 <% @invoices.each do |invoice| %>
 <%= link_to "#{invoice.id}", "/admin/invoices/#{invoice.id}" %>
+<% if count % 25 == 0 %>
+    <br/>
+    <% end %>
+  <% count += 1 %>
 <% end %>
