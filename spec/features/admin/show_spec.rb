@@ -32,6 +32,7 @@ RSpec.describe "the admin dashboard" do
       expect(page).to have_link("Invoice: #{invoice_2.id}")
     end
   end
+
   it "list of incompleted invoices is ordered from least recent to most recent" do
     customer_1 = Customer.create!(first_name: "Person 1", last_name: "Mcperson 1")
 
