@@ -19,12 +19,12 @@ RSpec.describe "Merchant Item Create Page" do
       fill_in "Name:", with: "Item Ea Voluptatum"
       fill_in "Description", with: "A thing that does things"
       fill_in "Unit Price:", with: 7654
-      click_button "Submit"
+      click_button "Create Item"
     end
     expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
 
-   # within("div.item_#{@merchant1.items.last.id}") do  #no longer needed as enabled/disabled shows name links
-      expect(page).to have_content("Item Ea Voluptatum")
-    #end
+    # within("div.item_#{@merchant1.items.last.id}") do  #no longer needed as enabled/disabled shows name links
+    expect(page).to have_content("Item Ea Voluptatum")
+    # end
   end
 end
