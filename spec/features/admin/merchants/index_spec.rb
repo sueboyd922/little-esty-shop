@@ -19,6 +19,36 @@ RSpec.describe "the admin merchants indexpage" do
     expect(current_path).to eq("/admin/merchants/#{merchant.id}")
   end
 
+  it 'lists merchants grouped by status' do 
+    merchant1 = FactoryBot.create_list(:merchant, 1, status: 0)[0]
+    merchant2 = FactoryBot.create_list(:merchant, 1, status: 0)[0]
+    merchant3 = FactoryBot.create_list(:merchant, 1, status: 0)[0]
+    merchant4 = FactoryBot.create_list(:merchant, 1, status: 1)[0]
+    merchant5 = FactoryBot.create_list(:merchant, 1, status: 1)[0]
+    merchant6 = FactoryBot.create_list(:merchant, 1, status: 1)[0]
+
+    visit admin_merchants_path
+
+    within(".enabled") do
+      expect(page).to have_content(merchant1.name)
+      expect(page).to have_content(merchant2.name)
+      expect(page).to have_content(merchant3.name)
+      expect(page).to_not have_content(merchant4.name)
+      expect(page).to_not have_content(merchant5.name)
+      expect(page).to_not have_content(merchant6.name)
+    end
+
+    within(".disabled") do
+      expect(page).to_not have_content(merchant1.name)
+      expect(page).to_not have_content(merchant2.name)
+      expect(page).to_not have_content(merchant3.name)
+      expect(page).to have_content(merchant4.name)
+      expect(page).to have_content(merchant5.name)
+      expect(page).to have_content(merchant6.name)
+    end
+
+
+  end 
 
   it 'lists the top five merchants and their total revenue' do 
     merchant1 = FactoryBot.create_list(:merchant, 1, name: 'merchant1')[0]

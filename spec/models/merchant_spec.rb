@@ -11,6 +11,7 @@ RSpec.describe Merchant, type: :model do
 
   describe "validations" do
     it { should validate_presence_of(:name) }
+    it { should define_enum_for(:status).with([:enabled, :disabled])}
   end
 
 
@@ -141,6 +142,20 @@ RSpec.describe Merchant, type: :model do
 
           expect(Merchant.top_5_merchants).to eq([merchant1, merchant6, merchant3, merchant4, merchant5])
         end
+      end
+
+      describe '#enabled_merchants, #disabled_merchants' do 
+        it 'lists enabled and disabled merchants' do 
+          merchant1 = FactoryBot.create_list(:merchant, 1, status: 0)[0]
+          merchant2 = FactoryBot.create_list(:merchant, 1, status: 0)[0]
+          merchant3 = FactoryBot.create_list(:merchant, 1, status: 0)[0]
+          merchant4 = FactoryBot.create_list(:merchant, 1, status: 1)[0]
+          merchant5 = FactoryBot.create_list(:merchant, 1, status: 1)[0]
+          merchant6 = FactoryBot.create_list(:merchant, 1, status: 1)[0]
+
+          expect(Merchant.enabled_merchants).to eq([merchant1, merchant2, merchant3])
+          expect(Merchant.disabled_merchants).to eq([merchant4, merchant5, merchant6])
+        end 
       end
     end
 end
