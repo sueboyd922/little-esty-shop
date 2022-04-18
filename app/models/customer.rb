@@ -5,9 +5,11 @@ class Customer < ApplicationRecord
   validates_presence_of :first_name, :last_name
 
  def self.top_5_customers
-   customers = joins(:transactions).where(result: 0)
-   wip = customers.joins(invoices: :invoice_items).distinct.select("customers.*, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue_generated").group("customers.id")
-   # wip = joins(:transactions, invoices: :invoice_items).where(transactions: {result: 0}).distinct.select("customers.*, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue_generated").group("customers.id")
-   require "pry"; binding.pry
+   joins(:transactions)
+   .where(transactions: {result: 0})
+   .distinct.select("customers.*, count(transactions) as num_of_transactions")
+   .group("customers.id")
+   .order(num_of_transactions: :desc)
+   # require "pry"; binding.pry
  end
 end
