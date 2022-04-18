@@ -1,4 +1,12 @@
-<h1>All Merchants</h1>
+<h3>Top 5 Merchants:</h3>
+<% @merchants.top_5_merchants.each do |merchant|%>
+	<section id = "top_5-<%= merchant.id %>">
+		<p><%= merchant.name %> , 
+			Total Revenue: $<%= '%.02f' %  (merchant.total_revenue.to_f/100) %></p>
+	</section>
+<% end %>
+<br>
+<h3>All Merchants</h3>
 <% @merchants.each do |merchant|%>
 	<p><%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %></p>
 <% end %>
