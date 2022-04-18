@@ -21,7 +21,7 @@ RSpec.describe "Merchant Items Show Page" do
       expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item2.id}")
       expect(page).to have_content(@item2.name)
       expect(page).to have_content(@item2.description)
-      expect(page).to have_content(@item2.unit_price)
+      expect(page).to have_content(100.99)
       expect(page).to_not have_content(@item4.name)
     end
     it "has a link to update item information" do
