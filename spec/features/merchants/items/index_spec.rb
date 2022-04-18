@@ -130,7 +130,7 @@ RSpec.describe "merchants items index page", type: :feature do
       expect(item_6.name).to appear_before(item_4.name)
       expect(item_4.name).to appear_before(item_2.name)
 
-      # expect(page).to have_content("19777219")
+      # expect(page).to have_content(@item.totalrevenue)
       # expect(page).to have_content("9899016")
       # expect(page).to have_content("3737512")
       # expect(page).to have_content("1897324")
