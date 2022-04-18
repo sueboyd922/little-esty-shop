@@ -7,6 +7,17 @@ class Merchant < ApplicationRecord
 
   validates_presence_of(:name)
 
+  def self.top_5_merchants
+     merchants_with_valid_invoices = self.joins(invoices: :transactions)
+                                           .where('transactions.result = 0')
+                                           .select('merchants.*').distinct
+    merchants_with_valid_invoices.joins(:invoice_items)
+                                 .select('merchants.*, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue')
+                                 .group(:id)
+                                 .order(total_revenue: :desc)
+                                 .limit(5)
+  end
+
   def items_ready_to_ship
     InvoiceItem.where(item: items).where.not(status: 2)
   end
