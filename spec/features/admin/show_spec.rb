@@ -137,7 +137,7 @@ RSpec.describe "the admin dashboard" do
     FactoryBot.create_list(:transaction, 1, invoice: invoice_11, result: 0)
     #customer_7 transactions total: 1 1 success spent: 10800
     FactoryBot.create_list(:transaction, 1, invoice: invoice_3, result: 0)
-
+    # require "pry"; binding.pry
     visit "/admin"
     expect(page).to have_content("Top 5 Customers")
     within ".cust-#{customer_6.id}" do
