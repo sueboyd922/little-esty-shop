@@ -16,18 +16,17 @@ RSpec.describe 'The admin merchant index' do
 
 
     within("#enabled_merchant-#{@merchant1.id}") do
-    expect(@merchant1.status).to eq "Enabled"
-    expect(page).to have_content('Enabled')
-    click_button "Disable", match: :first
-    binding.pry
-    expect(current_path).to eq "/admin/merchants"
+      expect(@merchant1.status).to eq "Enabled"
+      expect(page).to have_content('Enabled')
+      click_button "Disable", match: :first
+      expect(current_path).to eq "/admin/merchants"
     end
 
     within("#disabled_merchant-#{@merchant1.id}") do
       expect(page).to have_content(@merchant1.name)
-      expect(page).to have_content(@merchant1.status)
+      updated_merchant = Merchant.find(@merchant1.id)
+      expect(page).to have_content(updated_merchant.status)
       expect(page).to have_button('Enable')
-
     end
 
   end
