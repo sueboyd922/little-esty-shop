@@ -122,13 +122,13 @@ RSpec.describe Merchant, type: :model do
         invoice6 = FactoryBot.create_list(:invoice, 6, customer_id: cust6.id, status: 2)[5]
         invoice7 = FactoryBot.create_list(:invoice, 7, customer_id: cust7.id, status: 2)[6]
 
-        FactoryBot.create_list(:invoice_item, 1, item_id: item_1.id, invoice_id: invoice1.id)
-        FactoryBot.create_list(:invoice_item, 2, item_id: item_2.id, invoice_id: invoice2.id)
-        FactoryBot.create_list(:invoice_item, 3, item_id: item_3.id, invoice_id: invoice3.id)
-        FactoryBot.create_list(:invoice_item, 4, item_id: item_4.id, invoice_id: invoice4.id)
-        FactoryBot.create_list(:invoice_item, 5, item_id: item_5.id, invoice_id: invoice5.id)
-        FactoryBot.create_list(:invoice_item, 6, item_id: item_6.id, invoice_id: invoice6.id)
-        FactoryBot.create_list(:invoice_item, 7, item_id: item_7.id, invoice_id: invoice7.id)
+        FactoryBot.create_list(:invoice_item, 1, item_id: item_1.id, invoice_id: invoice1.id, quantity: 10, unit_price: 10)
+        FactoryBot.create_list(:invoice_item, 2, item_id: item_2.id, invoice_id: invoice2.id, quantity: 10, unit_price: 25)
+        FactoryBot.create_list(:invoice_item, 3, item_id: item_3.id, invoice_id: invoice3.id, quantity: 10, unit_price: 245)
+        FactoryBot.create_list(:invoice_item, 4, item_id: item_4.id, invoice_id: invoice4.id, quantity: 10, unit_price: 321)
+        FactoryBot.create_list(:invoice_item, 5, item_id: item_5.id, invoice_id: invoice5.id, quantity: 10, unit_price: 10)
+        FactoryBot.create_list(:invoice_item, 6, item_id: item_6.id, invoice_id: invoice6.id, quantity: 10, unit_price: 369)
+        FactoryBot.create_list(:invoice_item, 7, item_id: item_7.id, invoice_id: invoice7.id, quantity: 10, unit_price: 400)
 
         FactoryBot.create_list(:transaction, 1, invoice_id: invoice1.id, result: 1)
         FactoryBot.create_list(:transaction, 2, invoice_id: invoice2.id, result: 0)
