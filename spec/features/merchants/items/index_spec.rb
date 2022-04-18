@@ -101,13 +101,13 @@ RSpec.describe "merchants items index page", type: :feature do
     invoice6 = FactoryBot.create_list(:invoice, 6, customer_id: cust6.id, status: 2)[5]
     invoice7 = FactoryBot.create_list(:invoice, 7, customer_id: cust7.id, status: 2)[6]
 
-    FactoryBot.create_list(:invoice_item, 1, item_id: item_1.id, invoice_id: invoice1.id)
-    FactoryBot.create_list(:invoice_item, 2, item_id: item_2.id, invoice_id: invoice2.id)
-    FactoryBot.create_list(:invoice_item, 3, item_id: item_3.id, invoice_id: invoice3.id)
-    FactoryBot.create_list(:invoice_item, 4, item_id: item_4.id, invoice_id: invoice4.id)
-    FactoryBot.create_list(:invoice_item, 5, item_id: item_5.id, invoice_id: invoice5.id)
-    FactoryBot.create_list(:invoice_item, 6, item_id: item_6.id, invoice_id: invoice6.id)
-    FactoryBot.create_list(:invoice_item, 7, item_id: item_7.id, invoice_id: invoice7.id)
+    FactoryBot.create_list(:invoice_item, 1, item_id: item_1.id, invoice_id: invoice1.id, quantity: 10, unit_price: 10)
+    FactoryBot.create_list(:invoice_item, 2, item_id: item_2.id, invoice_id: invoice2.id, quantity: 10, unit_price: 25)
+    FactoryBot.create_list(:invoice_item, 3, item_id: item_3.id, invoice_id: invoice3.id, quantity: 10, unit_price: 245)
+    FactoryBot.create_list(:invoice_item, 4, item_id: item_4.id, invoice_id: invoice4.id, quantity: 10, unit_price: 321)
+    FactoryBot.create_list(:invoice_item, 5, item_id: item_5.id, invoice_id: invoice5.id, quantity: 10, unit_price: 10)
+    FactoryBot.create_list(:invoice_item, 6, item_id: item_6.id, invoice_id: invoice6.id, quantity: 10, unit_price: 369)
+    FactoryBot.create_list(:invoice_item, 7, item_id: item_7.id, invoice_id: invoice7.id, quantity: 10, unit_price: 400)
 
     FactoryBot.create_list(:transaction, 1, invoice_id: invoice1.id, result: 1)
     FactoryBot.create_list(:transaction, 2, invoice_id: invoice2.id, result: 0)
@@ -129,6 +129,12 @@ RSpec.describe "merchants items index page", type: :feature do
       expect(item_7.name).to appear_before(item_6.name)
       expect(item_6.name).to appear_before(item_4.name)
       expect(item_4.name).to appear_before(item_2.name)
+
+      expect(page).to have_content("196000")
+      expect(page).to have_content("132840")
+      expect(page).to have_content("51360")
+      expect(page).to have_content("22050")
+      expect(page).to have_content("1000")
     end
     within ".top_items" do
       click_link(item_2.name)

@@ -19,4 +19,8 @@ RSpec.describe InvoiceItem, type: :model do
     let!(:status) { %i[packaged pending shipped]}
   end
 
+  describe 'instance methods' do
+   
+  end
+
 end
