@@ -55,17 +55,4 @@ class Merchant < ApplicationRecord
       .order(totalrevenue: :desc)
       .limit(5)
   end
-
-  # def popular_items(item_count = 5)
-  #   if item_count > items.count
-  #     item_count = items.count
-  #   end
-  #
-  #   items.joins(:transactions)
-  #     .select("items.*")
-  #     .merge(Transaction.successful)
-  #     .merge(InvoiceItem.grouped_total_revenue)
-  #     .order(revenue: :desc)
-  #     .limit(item_count)
-  # end
 end
