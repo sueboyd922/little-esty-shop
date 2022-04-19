@@ -84,22 +84,21 @@ RSpec.describe "admin invoices show page" do
     expect(page).to have_content("Total Revenue: $101.40")
   end
 
-  it "displays invoice_items status and allows edits" do
+  it "displays invoice status and allows edits" do
     customer3 = Customer.create!(first_name: "Ash", last_name: "Barty")
     invoice5 = customer3.invoices.create!(status: 0)
     visit "/admin/invoices/#{invoice5.id}"
 
-    expect(page).to have_content("Status: cancelled")
-    expect(page).to_not have_content("Status: completed")
-    expect(page).to_not have_content("Status: in progress")
+    expect(page).to have_field(:status, with: "cancelled")
+    # expect(page).to_not have_content("Status: completed")
+    # expect(page).to_not have_content("Status: in progress")
 
-    choose("completed")
+    select "Completed"
     click_on("Update Invoice Status")
 
     expect(current_path).to eq("/admin/invoices/#{invoice5.id}")
 
-    expect(page).to_not have_content("Status: cancelled")
-    expect(page).to have_content("Status: completed")
-    expect(page).to_not have_content("Status: in progress")
+    expect(page).to have_field(:status, with: "Completed")
+    expect(current_path).to eq("/admin/invoices/#{invoice5.id}")
   end
 end

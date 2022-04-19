@@ -3,13 +3,8 @@
 <p><strong>Customer Name: </strong><%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
 
 <p><strong>Status: </strong><%= @invoice.status %></p>
-<%= form_with url: "/admin/invoices/#{@invoice.id}?invoice_id=#{@invoice.id}", method: :patch, local: true do |form| %>
-    <%= form.radio_button :status, "completed", { checked: @invoice.status} %>
-    <%= form.label :status_completed, "completed"  %>
-    <%= form.radio_button :status, "cancelled" , :checked =>(@invoice.status == 0)%>
-    <%= form.label :status_cancelled, "cancelled" %>
-    <%= form.radio_button :status, "in progress", :checked => (@invoice.status == 1) %>
-    <%= form.label :status_in_progress, "in progress"%>
+<%= form_with url: "/admin/invoices/#{@invoice.id}#{@invoice.id}", method: :patch, local: true do |form| %>
+    <p><%= form.select(:status, [['Cancelled', 'cancelled'], ['In Progress', 'in_progress'], ['Completed', 'completed']], selected: @invoice.status) %></p>
     <%= form.submit "Update Invoice Status" %>
   <% end %>
 
