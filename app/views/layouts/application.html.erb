@@ -16,5 +16,14 @@
     <% end %>
   </div>
     <%= yield %>
+    <br><br><br><br><br>
+   <section id = "footer">
+    <h3> Github Contributors</h3>
+    <h4>Usernames:</h4>
+     <% @repo_info.map do |hash| %>
+        <p><%= hash[:login] %></p>
+    <%end %>
+</section>
+
   </body>
 </html>
