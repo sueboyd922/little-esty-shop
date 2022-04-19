@@ -6,10 +6,11 @@ class ApplicationController < ActionController::Base
 	def repo_info
 		response = HTTParty.get('https://api.github.com/repos/sueboyd922/little-esty-shop/contributors')
 		body = JSON.parse(response.body, symbolize_names: true)
-		if body[:message]
+
+		if body.class != Array
 			@repo_info = body[:message]
 		else
-			repo_info = body 
+			@repo_info = body 
 		end
 	end
 
