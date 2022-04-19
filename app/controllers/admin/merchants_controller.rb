@@ -15,7 +15,7 @@ class Admin::MerchantsController < ApplicationController
   def update
     merchant = Merchant.find(params[:id])
      if !params[:status].nil?
-      @merchant.update(status: params[:status])
+      merchant.update(status: params[:status])
       redirect_to action: :index
      else
        merchant.update(merchant_params)
