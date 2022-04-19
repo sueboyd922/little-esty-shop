@@ -95,53 +95,112 @@ RSpec.describe Merchant, type: :model do
       end
     end
 
-    describe "popular_items" do
-      it "returns a list of items ordered by potential_revenue" do
-        merchant_1 = Merchant.create!(name: "Stuff and Things ")
-        item_1 = FactoryBot.create_list(:item, 1, merchant_id: merchant_1.id)[0]
-        item_2 = FactoryBot.create_list(:item, 2, merchant_id: merchant_1.id)[1]
-        item_3 = FactoryBot.create_list(:item, 3, merchant_id: merchant_1.id)[2]
-        item_4 = FactoryBot.create_list(:item, 4, merchant_id: merchant_1.id)[3]
-        item_5 = FactoryBot.create_list(:item, 5, merchant_id: merchant_1.id)[4]
-        item_6 = FactoryBot.create_list(:item, 6, merchant_id: merchant_1.id)[5]
-        item_7 = FactoryBot.create_list(:item, 7, merchant_id: merchant_1.id)[6]
+    describe "class methods" do
+      describe "#top_5_merchants" do
+        it "returns the top five merchanst with largest total revenue" do
+          merchant1 = FactoryBot.create_list(:merchant, 1, name: "merchant1")[0]
+          merchant2 = FactoryBot.create_list(:merchant, 1, name: "merchant2")[0]
+          merchant3 = FactoryBot.create_list(:merchant, 1, name: "merchant3")[0]
+          merchant4 = FactoryBot.create_list(:merchant, 1, name: "merchant4")[0]
+          merchant5 = FactoryBot.create_list(:merchant, 1, name: "merchant5")[0]
+          merchant6 = FactoryBot.create_list(:merchant, 1, name: "merchant6")[0]
 
-        FactoryBot.create_list(:customer, 7)
-        cust1 = Customer.all[0]
-        cust2 = Customer.all[1]
-        cust3 = Customer.all[2]
-        cust4 = Customer.all[3]
-        cust5 = Customer.all[4]
-        cust6 = Customer.all[5]
-        cust7 = Customer.all[6]
+          item1 = FactoryBot.create_list(:item, 1, merchant: merchant1)[0]
+          item2 = FactoryBot.create_list(:item, 1, merchant: merchant2)[0]
+          item3 = FactoryBot.create_list(:item, 1, merchant: merchant3)[0]
+          item4 = FactoryBot.create_list(:item, 1, merchant: merchant4)[0]
+          item5 = FactoryBot.create_list(:item, 1, merchant: merchant5)[0]
+          item6 = FactoryBot.create_list(:item, 1, merchant: merchant6)[0]
 
-        invoice1 = FactoryBot.create_list(:invoice, 1, customer_id: cust1.id, status: 2)[0]
-        invoice2 = FactoryBot.create_list(:invoice, 2, customer_id: cust2.id, status: 2)[1]
-        invoice3 = FactoryBot.create_list(:invoice, 3, customer_id: cust3.id, status: 2)[2]
-        invoice4 = FactoryBot.create_list(:invoice, 4, customer_id: cust4.id, status: 2)[3]
-        invoice5 = FactoryBot.create_list(:invoice, 5, customer_id: cust5.id, status: 0)[4]
-        invoice6 = FactoryBot.create_list(:invoice, 6, customer_id: cust6.id, status: 2)[5]
-        invoice7 = FactoryBot.create_list(:invoice, 7, customer_id: cust7.id, status: 2)[6]
+          invoice1 = FactoryBot.create_list(:invoice, 1)[0]
+          invoice2 = FactoryBot.create_list(:invoice, 1)[0]
+          invoice3 = FactoryBot.create_list(:invoice, 1)[0]
+          invoice4 = FactoryBot.create_list(:invoice, 1)[0]
+          invoice5 = FactoryBot.create_list(:invoice, 1)[0]
+          invoice6 = FactoryBot.create_list(:invoice, 1)[0]
 
-        FactoryBot.create_list(:invoice_item, 1, item_id: item_1.id, invoice_id: invoice1.id, quantity: 10, unit_price: 10)
-        FactoryBot.create_list(:invoice_item, 2, item_id: item_2.id, invoice_id: invoice2.id, quantity: 10, unit_price: 25)
-        FactoryBot.create_list(:invoice_item, 3, item_id: item_3.id, invoice_id: invoice3.id, quantity: 10, unit_price: 245)
-        FactoryBot.create_list(:invoice_item, 4, item_id: item_4.id, invoice_id: invoice4.id, quantity: 10, unit_price: 321)
-        FactoryBot.create_list(:invoice_item, 5, item_id: item_5.id, invoice_id: invoice5.id, quantity: 10, unit_price: 10)
-        FactoryBot.create_list(:invoice_item, 6, item_id: item_6.id, invoice_id: invoice6.id, quantity: 10, unit_price: 369)
-        FactoryBot.create_list(:invoice_item, 7, item_id: item_7.id, invoice_id: invoice7.id, quantity: 10, unit_price: 400)
+          invoice_item1 = FactoryBot.create_list(:invoice_item, 1, invoice: invoice1, item: item1, quantity: 10, unit_price: 10)[0]
+          invoice_item2 = FactoryBot.create_list(:invoice_item, 1, invoice: invoice2, item: item2, quantity: 9, unit_price: 10)[0]
+          invoice_item3 = FactoryBot.create_list(:invoice_item, 1, invoice: invoice3, item: item3, quantity: 8, unit_price: 10)[0]
+          invoice_item4 = FactoryBot.create_list(:invoice_item, 1, invoice: invoice4, item: item4, quantity: 7, unit_price: 10)[0]
+          invoice_item5 = FactoryBot.create_list(:invoice_item, 1, invoice: invoice5, item: item5, quantity: 5, unit_price: 10)[0]
+          invoice_item6 = FactoryBot.create_list(:invoice_item, 1, invoice: invoice6, item: item6, quantity: 9, unit_price: 10)[0]
 
-        FactoryBot.create_list(:transaction, 1, invoice_id: invoice1.id, result: 1)
-        FactoryBot.create_list(:transaction, 2, invoice_id: invoice2.id, result: 0)
-        FactoryBot.create_list(:transaction, 3, invoice_id: invoice3.id, result: 0)
-        FactoryBot.create_list(:transaction, 4, invoice_id: invoice4.id, result: 0)
-        FactoryBot.create_list(:transaction, 5, invoice_id: invoice5.id, result: 1)
-        FactoryBot.create_list(:transaction, 6, invoice_id: invoice6.id, result: 0)
-        FactoryBot.create_list(:transaction, 7, invoice_id: invoice7.id, result: 0)
+          transaction1_0 = FactoryBot.create_list(:transaction, 1, invoice: invoice1, result: 0)
+          transaction1_1 = FactoryBot.create_list(:transaction, 1, invoice: invoice1, result: 1)
+          transaction2_1 = FactoryBot.create_list(:transaction, 1, invoice: invoice2, result: 1)
+          transaction3_0 = FactoryBot.create_list(:transaction, 1, invoice: invoice3, result: 0)
+          transaction4_0 = FactoryBot.create_list(:transaction, 1, invoice: invoice4, result: 0)
+          transaction5_1 = FactoryBot.create_list(:transaction, 1, invoice: invoice5, result: 1)
+          transaction5_0 = FactoryBot.create_list(:transaction, 1, invoice: invoice5, result: 0)
+          transaction6_0 = FactoryBot.create_list(:transaction, 1, invoice: invoice6, result: 0)
 
-        expected = [item_7, item_6, item_4, item_3, item_2]
+          expect(Merchant.top_5_merchants).to eq([merchant1, merchant6, merchant3, merchant4, merchant5])
+        end
+      end
 
-        expect(merchant_1.popular_items).to eq(expected)
+      describe "#enabled_merchants, #disabled_merchants" do
+        it "lists enabled and disabled merchants" do
+          merchant1 = FactoryBot.create_list(:merchant, 1, status: 0)[0]
+          merchant2 = FactoryBot.create_list(:merchant, 1, status: 0)[0]
+          merchant3 = FactoryBot.create_list(:merchant, 1, status: 0)[0]
+          merchant4 = FactoryBot.create_list(:merchant, 1, status: 1)[0]
+          merchant5 = FactoryBot.create_list(:merchant, 1, status: 1)[0]
+          merchant6 = FactoryBot.create_list(:merchant, 1, status: 1)[0]
+
+          expect(Merchant.enabled_merchants).to eq([merchant1, merchant2, merchant3])
+          expect(Merchant.disabled_merchants).to eq([merchant4, merchant5, merchant6])
+        end
+      end
+
+      describe "popular_items" do
+        it "returns a list of items ordered by potential_revenue" do
+          merchant_1 = Merchant.create!(name: "Stuff and Things ")
+          item_1 = FactoryBot.create_list(:item, 1, merchant_id: merchant_1.id)[0]
+          item_2 = FactoryBot.create_list(:item, 2, merchant_id: merchant_1.id)[1]
+          item_3 = FactoryBot.create_list(:item, 3, merchant_id: merchant_1.id)[2]
+          item_4 = FactoryBot.create_list(:item, 4, merchant_id: merchant_1.id)[3]
+          item_5 = FactoryBot.create_list(:item, 5, merchant_id: merchant_1.id)[4]
+          item_6 = FactoryBot.create_list(:item, 6, merchant_id: merchant_1.id)[5]
+          item_7 = FactoryBot.create_list(:item, 7, merchant_id: merchant_1.id)[6]
+
+          FactoryBot.create_list(:customer, 7)
+          cust1 = Customer.all[0]
+          cust2 = Customer.all[1]
+          cust3 = Customer.all[2]
+          cust4 = Customer.all[3]
+          cust5 = Customer.all[4]
+          cust6 = Customer.all[5]
+          cust7 = Customer.all[6]
+
+          invoice1 = FactoryBot.create_list(:invoice, 1, customer_id: cust1.id, status: 2)[0]
+          invoice2 = FactoryBot.create_list(:invoice, 2, customer_id: cust2.id, status: 2)[1]
+          invoice3 = FactoryBot.create_list(:invoice, 3, customer_id: cust3.id, status: 2)[2]
+          invoice4 = FactoryBot.create_list(:invoice, 4, customer_id: cust4.id, status: 2)[3]
+          invoice5 = FactoryBot.create_list(:invoice, 5, customer_id: cust5.id, status: 0)[4]
+          invoice6 = FactoryBot.create_list(:invoice, 6, customer_id: cust6.id, status: 2)[5]
+          invoice7 = FactoryBot.create_list(:invoice, 7, customer_id: cust7.id, status: 2)[6]
+
+          FactoryBot.create_list(:invoice_item, 1, item_id: item_1.id, invoice_id: invoice1.id, quantity: 10, unit_price: 10)
+          FactoryBot.create_list(:invoice_item, 2, item_id: item_2.id, invoice_id: invoice2.id, quantity: 10, unit_price: 25)
+          FactoryBot.create_list(:invoice_item, 3, item_id: item_3.id, invoice_id: invoice3.id, quantity: 10, unit_price: 245)
+          FactoryBot.create_list(:invoice_item, 4, item_id: item_4.id, invoice_id: invoice4.id, quantity: 10, unit_price: 321)
+          FactoryBot.create_list(:invoice_item, 5, item_id: item_5.id, invoice_id: invoice5.id, quantity: 10, unit_price: 10)
+          FactoryBot.create_list(:invoice_item, 6, item_id: item_6.id, invoice_id: invoice6.id, quantity: 10, unit_price: 369)
+          FactoryBot.create_list(:invoice_item, 7, item_id: item_7.id, invoice_id: invoice7.id, quantity: 10, unit_price: 400)
+
+          FactoryBot.create_list(:transaction, 1, invoice_id: invoice1.id, result: 1)
+          FactoryBot.create_list(:transaction, 2, invoice_id: invoice2.id, result: 0)
+          FactoryBot.create_list(:transaction, 3, invoice_id: invoice3.id, result: 0)
+          FactoryBot.create_list(:transaction, 4, invoice_id: invoice4.id, result: 0)
+          FactoryBot.create_list(:transaction, 5, invoice_id: invoice5.id, result: 1)
+          FactoryBot.create_list(:transaction, 6, invoice_id: invoice6.id, result: 0)
+          FactoryBot.create_list(:transaction, 7, invoice_id: invoice7.id, result: 0)
+
+          expected = [item_7, item_6, item_4, item_3, item_2]
+
+          expect(merchant_1.popular_items).to eq(expected)
+        end
       end
     end
   end
