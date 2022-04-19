@@ -12,8 +12,8 @@ Rails.application.routes.draw do
   get 'merchants/:merchant_id/invoices/:invoice_id', to: 'invoices#show'
 
 
-  patch 'merchants/:merchant_id/items', to: 'items#update'
-  patch "merchants/:merchant_id/items/:item_id", to: "items#update"
+  patch 'merchants/:merchant_id/items', to: 'merchant_items#update'
+  patch "merchants/:merchant_id/items/:item_id", to: "merchant_items#update"
   patch "merchants/:merchant_id/invoice_items/:invoice_item_id", to: "invoice_items#update"
 
   namespace :admin do
