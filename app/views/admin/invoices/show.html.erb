@@ -4,14 +4,16 @@
 
 <p><strong>Status: </strong><%= @invoice.status %></p>
 <%= form_with url: "/admin/invoices/#{@invoice.id}?invoice_id=#{@invoice.id}", method: :patch, local: true do |form| %>
-    <%= form.radio_button :status, "completed" %>
-    <%= form.label :status_completed, "completed" %>
-    <%= form.radio_button :status, "cancelled" %>
+    <%= form.radio_button :status, "completed", { checked: @invoice.status} %>
+    <%= form.label :status_completed, "completed"  %>
+    <%= form.radio_button :status, "cancelled" , :checked =>(@invoice.status == 0)%>
     <%= form.label :status_cancelled, "cancelled" %>
-    <%= form.radio_button :status, "in progress" %>
-    <%= form.label :status_in_progress, "in progress" %>
+    <%= form.radio_button :status, "in progress", :checked => (@invoice.status == 1) %>
+    <%= form.label :status_in_progress, "in progress"%>
     <%= form.submit "Update Invoice Status" %>
   <% end %>
+
+
 
 <p><strong>Created at: </strong><%= @invoice.created_at.strftime("%A, %B %d, %Y")%></p>
 

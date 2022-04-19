@@ -12,7 +12,6 @@ RSpec.describe "admin invoices show page" do
 
   it "shows all the information for an invoice" do
     today = Time.now.strftime("%A, %B %d, %Y")
-
     visit "admin/invoices/#{@invoice1.id}"
 
     expect(page).to have_content("Sally Jones")
