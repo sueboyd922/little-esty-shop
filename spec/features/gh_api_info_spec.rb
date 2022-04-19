@@ -12,6 +12,7 @@ RSpec.describe 'all index, show, edit, new pages' do
 
 		urls.each do |url|
 			visit url 
+			save_and_open_page
 			within("#footer") do 
 			expect(page).to have_content('sueboyd922')
 				expect(page).to have_content('kg-byte')

@@ -1,0 +1,12 @@
+   <br><br><br><br><br>
+   <section id = "footer">
+    <h3> Github Contributors</h3>
+    <% if @repo_info.class == String %>
+          <p><%= @repo_info %></p>
+    <% else %>
+      <h4>Usernames:</h4>
+       <% @repo_info.map do |hash| %>
+          <p><%= hash[:login] %></p>
+      <%end %>
+    <% end %>
+  </section>
