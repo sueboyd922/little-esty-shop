@@ -24,7 +24,7 @@ RSpec.describe "Merchant Items Edit Page" do
 
     within("#update_item") do
       fill_in "unit_price", with: 12345
-      click_on "Submit"
+      click_on "Update Item"
     end
     expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item2.id}")
     @item2.reload

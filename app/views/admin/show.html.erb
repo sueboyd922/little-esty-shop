@@ -2,6 +2,22 @@
 <%= link_to "Merchants Index", '/admin/merchants' %>
 <%= link_to "Invoices Index", '/admin/invoices' %>
 
+<section class="top-customers">
+  <h2>Top 5 Customers </h2>
+  <table>
+    <tr>
+      <th> Customer Name </th>
+      <th> No. Transactions </th>
+    </tr>
+    <% @top_5_customers.each do |customer| %>
+      <tr class="cust-<%= customer.id %>">
+        <td> <%= customer.first_name %> <%= customer.last_name %></td>
+        <td> <%= customer.num_of_transactions %></td>
+      </tr>
+      <% end %>
+  </table>
+</section>
+
 <h2>Incomplete Invoices</h2>
 <div class="incompleted_invoices">
   <% @invoices.not_completed.each do |invoice| %>
