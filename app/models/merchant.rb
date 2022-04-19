@@ -6,6 +6,7 @@ class Merchant < ApplicationRecord
   has_many :transactions, through: :invoices
 
   validates_presence_of(:name)
+   validates_presence_of(:status)
   enum status: {"enabled" => 0, "disabled" => 1}
   def self.top_5_merchants
      merchants_with_valid_invoices = self.joins(invoices: :transactions)
@@ -25,6 +26,7 @@ class Merchant < ApplicationRecord
   def self.disabled_merchants
     where(status: 1)
   end
+
 
   def items_ready_to_ship
     InvoiceItem.where(item: items).where.not(status: 2)
