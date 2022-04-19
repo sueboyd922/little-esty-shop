@@ -1,3 +1,4 @@
+
 <h2>Top 5 Merchants:</h2>
 <% @merchants.top_5_merchants.each do |merchant|%>
 	<section id = "top_5-<%= merchant.id %>">
@@ -16,6 +17,7 @@
       <div class="merchant-<%=merchant.id%>">
           <p> <%= link_to  "#{merchant.name}", "/admin/merchants/#{merchant.id}" %> </p>
           <p>Status: Enabled</p>
+        <p>Click this button to disable this merchant </p> <%= button_to "Disable", "merchants/#{merchant.id}", params: {status: "disabled"}, method: :patch %>
       </div>
       <% end %>
 </section>
@@ -26,7 +28,9 @@
       <div class="merchant-<%=merchant.id%>"
           <p> <%= link_to  "#{merchant.name}", "/admin/merchants/#{merchant.id}" %> </p>
           <p>Status: Disabled</p>
+      <p>Click this button to enable this merchant </p> <%= button_to "Enable", "merchants/#{merchant.id}", params: {status: "enabled"}, method: :patch %>
       </div>
       <% end %>
 </section>
+
 
