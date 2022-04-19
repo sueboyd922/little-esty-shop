@@ -24,3 +24,13 @@
       </div>
       <% end %>
 </section>
+
+<div class="top_items">
+  <ol>
+    <h3>Top 5 Items by Revenue</h3>
+    <% @merchant.popular_items.each do |item| %>
+      <%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %>
+      $<%= '%.2f' % (item.totalrevenue) %>
+    <% end %>
+  </ol>
+</div>
