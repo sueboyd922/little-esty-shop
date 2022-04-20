@@ -10,6 +10,25 @@ GEM
       actionview (= 5.2.7)
       activejob (= 5.2.7)
       mail (~> 2.5, >= 2.5.4)
+  remote: https://rubygems.org/
+  specs:
+    actioncable (5.2.7)
+      actionpack (= 5.2.7)
+      nio4r (~> 2.0)
+      websocket-driver (>= 0.6.1)
+    actionmailer (5.2.7)
+      actionpack (= 5.2.7)
+      actionview (= 5.2.7)
+      activejob (= 5.2.7)
+      mail (~> 2.5, >= 2.5.4)
+      rails-dom-testing (~> 2.0)
+    actionpack (5.2.7)
+      actionview (= 5.2.7)
+      activesupport (= 5.2.7)
+      rack (~> 2.0, >= 2.0.8)
+      rack-test (>= 0.6.3)
+      rails-dom-testing (~> 2.0)
+      rails-html-sanitizer (~> 1.0, >= 1.0.2)
       rails-dom-testing (~> 2.0)
     actionpack (5.2.7)
       actionview (= 5.2.7)
@@ -319,7 +338,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 RUBY VERSION
-   ruby 2.7.4p191
+   ruby 2.7.4
 
 BUNDLED WITH
    2.1.4
