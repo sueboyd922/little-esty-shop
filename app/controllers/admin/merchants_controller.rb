@@ -24,6 +24,14 @@ class Admin::MerchantsController < ApplicationController
     end
   end
 
+  def new
+  end
+
+  def create
+    Merchant.create(name: params[:name], status: 1)
+    redirect_to action: :index
+  end
+  
 private
   def merchant_params
     params.permit(:name, :status)
