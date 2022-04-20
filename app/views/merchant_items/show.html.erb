@@ -2,4 +2,4 @@
 
 <h3>Description: <%= @item.description %></h3>
 <h3>Unit Price:  $<%= '%.02f' % (@item.unit_price.to_f/100) %></h3>
-<%= link_to "Update #{@item.name}", "/merchants/#{@merchant.id}/items/#{@item.id}/edit" %>
+<%= link_to "Update #{@item.name}", "/merchants/#{@item.merchant.id}/items/#{@item.id}/edit" %>
