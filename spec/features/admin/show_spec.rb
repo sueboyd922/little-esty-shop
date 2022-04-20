@@ -47,7 +47,7 @@ RSpec.describe "the admin dashboard" do
     end
   end
 
-  it 'has a list of the top 5 customers' do
+  it "has a list of the top 5 customers" do
     FactoryBot.create_list(:customer, 7)
     customer_1 = Customer.all[0]
     customer_2 = Customer.all[1]
@@ -96,7 +96,7 @@ RSpec.describe "the admin dashboard" do
     #   FactoryBot.create_list(:transaction, 1, invoice: invoice, result: 0)
     # end
 
-    #customer_1 transactions total 7, 5 success
+    # customer_1 transactions total 7, 5 success
     FactoryBot.create_list(:transaction, 1, invoice: invoice_0, result: 1)
     FactoryBot.create_list(:transaction, 1, invoice: invoice_0, result: 0)
     FactoryBot.create_list(:transaction, 1, invoice: invoice_14, result: 0)
@@ -104,30 +104,30 @@ RSpec.describe "the admin dashboard" do
     FactoryBot.create_list(:transaction, 1, invoice: invoice_15, result: 0)
     FactoryBot.create_list(:transaction, 1, invoice: invoice_1, result: 0)
     FactoryBot.create_list(:transaction, 1, invoice: invoice_22, result: 0)
-    #customer_2 transactions total 3, 3 success
+    # customer_2 transactions total 3, 3 success
     FactoryBot.create_list(:transaction, 1, invoice: invoice_2, result: 0)
     FactoryBot.create_list(:transaction, 1, invoice: invoice_3, result: 1)
     FactoryBot.create_list(:transaction, 1, invoice: invoice_3, result: 1)
     FactoryBot.create_list(:transaction, 1, invoice: invoice_23, result: 0)
     FactoryBot.create_list(:transaction, 1, invoice: invoice_24, result: 1)
     FactoryBot.create_list(:transaction, 1, invoice: invoice_24, result: 0)
-    #customer_3 transactions total 1 1 success
+    # customer_3 transactions total 1 1 success
     FactoryBot.create_list(:transaction, 1, invoice: invoice_4, result: 0)
-    #customer_4 transactions total 4 2 success
+    # customer_4 transactions total 4 2 success
     FactoryBot.create_list(:transaction, 1, invoice: invoice_6, result: 0)
     FactoryBot.create_list(:transaction, 1, invoice: invoice_7, result: 1)
     FactoryBot.create_list(:transaction, 1, invoice: invoice_7, result: 1)
     FactoryBot.create_list(:transaction, 1, invoice: invoice_7, result: 0)
-    #customer_5 transactions total: 2, 0 success
+    # customer_5 transactions total: 2, 0 success
     FactoryBot.create_list(:transaction, 1, invoice: invoice_9, result: 1)
     FactoryBot.create_list(:transaction, 1, invoice: invoice_9, result: 1)
-    #customer_6 transactions total: 5, 4 successful
+    # customer_6 transactions total: 5, 4 successful
     FactoryBot.create_list(:transaction, 1, invoice: invoice_10, result: 0)
     FactoryBot.create_list(:transaction, 1, invoice: invoice_11, result: 1)
     FactoryBot.create_list(:transaction, 1, invoice: invoice_11, result: 0)
     FactoryBot.create_list(:transaction, 1, invoice: invoice_16, result: 0)
     FactoryBot.create_list(:transaction, 1, invoice: invoice_25, result: 0)
-    #customer_7 transactions total: 8 6 success
+    # customer_7 transactions total: 8 6 success
     FactoryBot.create_list(:transaction, 1, invoice: invoice_13, result: 0)
     FactoryBot.create_list(:transaction, 1, invoice: invoice_17, result: 0)
     FactoryBot.create_list(:transaction, 1, invoice: invoice_18, result: 1)
@@ -161,5 +161,4 @@ RSpec.describe "the admin dashboard" do
       expect(page).not_to have_content(customer_5.first_name)
     end
   end
-
 end
