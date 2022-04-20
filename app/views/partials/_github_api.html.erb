@@ -6,9 +6,9 @@
       <h4>Unable to show Github Repo Details:</h4>
       <p><%= @contributors %></p>
 <% else %>
-  <h4>Usernames:</h4>
+  <h4>Collaborators:</h4>
    <% @contributors.map do |contributor| %>
-      <p><%= contributor.user_name %></p>
+      <p><%= contributor.user_name %>: <%=contributor.contributions %> commits</p>
    <%end %>
 <% end %>
 </section>
