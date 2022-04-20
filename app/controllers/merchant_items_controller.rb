@@ -22,8 +22,9 @@ class MerchantItemsController < ApplicationController
   end
 
   def show
-    @merchant = Merchant.find(params[:merchant_id])
+    # @merchant = Merchant.find(params[:merchant_id])
     @item = Item.find(params[:item_id])
+    # require "pry"; binding.pry
   end
 
   private
