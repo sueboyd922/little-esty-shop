@@ -26,10 +26,10 @@ class ItemsController < ApplicationController
   #   @item = Item.find(params[:item_id])
   # end
 
-  def edit
-    @merchant = Merchant.find(params[:merchant_id])
-    @item = Item.find(params[:item_id])
-  end
+  # def edit
+  #   @merchant = Merchant.find(params[:merchant_id])
+  #   @item = Item.find(params[:item_id])
+  # end
 
   def new
     @merchant = Merchant.find(params[:merchant_id])
