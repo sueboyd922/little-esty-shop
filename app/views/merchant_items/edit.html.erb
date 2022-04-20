@@ -1,0 +1,6 @@
+
+<div id=update_item>
+  <%= render partial: "form", locals: {path: "/merchants/#{@item.merchant.id}/items/#{@item.id}",
+                                       method: :patch,
+                                       button_text: "Update Item"} %>
+</div>
