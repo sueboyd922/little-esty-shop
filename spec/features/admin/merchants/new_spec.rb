@@ -16,8 +16,8 @@ RSpec.describe 'The admin merchant new' do
     fill_in("Name", :with => "Cory")
     click_button("Submit")
     expect(current_path).to eq "/admin/merchants"
-    
-    expect(page).to have_content("Merchant Name: Cory")
-    expect(page).to have_content("Merchant Status: disabled")
+
+    expect(page).to have_content("Cory")
+    expect(page).to have_content("Status: Disabled")
   end
 end
