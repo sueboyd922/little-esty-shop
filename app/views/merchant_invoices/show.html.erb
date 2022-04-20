@@ -7,7 +7,7 @@
 <p>Total Revenue: $<%= '%.02f' % @invoice.total_revenue %></p>
 <h1>Item Information</h1>
 
-<% @items.each do |item| %>
+<% @invoice.items.each do |item| %>
   <% item.invoice_items.each do |invoice_item| %>
   <section id = "invoice_item-<%= invoice_item.id %>">
     <p>Item Name: <%= item.name %></p>
