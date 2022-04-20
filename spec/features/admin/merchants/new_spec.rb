@@ -2,12 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'The admin merchant new' do
 
-  # before :each do
-  #   @merchant1 = FactoryBot.create_list(:merchant, 1)[0]
-  #   @merchant2 = FactoryBot.create_list(:merchant, 1)[0]
-  #   @merchant3 = FactoryBot.create_list(:merchant, 1)[0]
-  # end
-
   it "has a link to add a new merchant" do
     visit "admin/merchants"
     expect(page).to have_link("Create New Merchant")
@@ -25,8 +19,5 @@ RSpec.describe 'The admin merchant new' do
     
     expect(page).to have_content("Merchant Name: Cory")
     expect(page).to have_content("Merchant Status: disabled")
-
-
   end
-
 end
