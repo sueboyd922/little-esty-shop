@@ -29,6 +29,11 @@ class MerchantItemsController < ApplicationController
     @item = Item.find(params[:item_id])
   end
 
+  def new
+    @merchant = Merchant.find(params[:merchant_id])
+    @items = @merchant.items
+  end
+
   private
 
   def item_params
