@@ -160,6 +160,7 @@ RSpec.describe 'merchant show page' do
 		end
 
 		visit "/merchants/#{merchants[1].id}/dashboard"
+		click_on "My Discounts"
 		within ".discount-#{discount3.id}" do
 			click_on "Details"
 			expect(current_path).to eq("/merchants/#{merchants[1].id}/discounts/#{discount3.id}")
