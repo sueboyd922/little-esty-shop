@@ -148,7 +148,7 @@ RSpec.describe 'merchant show page' do
 		discount3 = merchants[1].discounts.create!(quantity: 2, percent_discount: 50)
 
 		visit "/merchants/#{merchants[0].id}/dashboard"
-		click_on "Discounts"
+		click_on "My Discounts"
 		expect(current_path).to eq("/merchants/#{merchants[0].id}/discounts")
 		expect(page).to have_content("25% off 2 of the same item")
 		expect(page).to have_content("30% off 4 of the same item")

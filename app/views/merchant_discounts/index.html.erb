@@ -1,0 +1,5 @@
+<h1>My Discounts</h1>
+
+<% @merchant.discounts.each_with_index do |dis, idx| %>
+  <p><%= idx %>. <%= "#{dis.percent_discount}% off #{dis.quantity} of the same item" %></p>
+<% end %>
