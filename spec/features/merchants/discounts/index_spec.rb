@@ -45,5 +45,4 @@ RSpec.describe 'merchant discounts index page', type: :feature do
     expect(page).to have_content("30% off 4 of the same item")
     expect(Discount.where(id: discount1.id).exists?).to be false
   end
-
 end
