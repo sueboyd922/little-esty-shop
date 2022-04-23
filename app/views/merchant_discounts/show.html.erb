@@ -2,3 +2,4 @@
 
 <p><strong>Discount:</strong> <%= @discount.percent_discount%>%</p>
 <p><strong>Item Count:</strong> <%= @discount.quantity%></p>
+<%= button_to "Edit", "/merchants/#{@discount.merchant.id}/discounts/#{@discount.id}/edit", method: :get%>
