@@ -2,12 +2,13 @@
 
 <%= link_to "My Items", "/merchants/#{@merchant.id}/items" %>
 <%= link_to "My Invoices", "/merchants/#{@merchant.id}/invoices" %>
+<%= link_to "My Discounts", "/merchants/#{@merchant.id}/discounts" %>
 
 
 <h3>Top 5 Customers:</h3>
 <% @merchant.top_5_customers.each do |customer|%>
 	<section id = "top_5-<%= customer.id %>">
-		<p><%= customer.first_name %> <%= customer.last_name %>, 
+		<p><%= customer.first_name %> <%= customer.last_name %>,
 			Number of Successful Transactions: <%= customer.transaction_count %></p>
 	</section>
 <% end %>

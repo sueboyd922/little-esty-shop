@@ -11,6 +11,7 @@ RSpec.describe "Merchant Items Edit Page" do
     @item4 = @merchant2.items.create!(name: "Item Rerum Est", description: "A thing that barks", unit_price: 3455)
     @item5 = @merchant2.items.create!(name: "Item Itaque Consequatur", description: "A thing that makes noise", unit_price: 7900)
   end
+  
   it "I see a form filled in with existing info" do
     visit "/merchants/#{@merchant1.id}/items/#{@item2.id}/edit"
 

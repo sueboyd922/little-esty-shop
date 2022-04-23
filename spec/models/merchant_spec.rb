@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe Merchant, type: :model do
   describe "relationships" do
     it { should have_many :items }
+    it { should have_many :discounts }
     it { should have_many(:invoice_items).through(:items) }
     it { should have_many(:invoices).through(:invoice_items) }
     it { should have_many(:customers).through(:invoices) }
@@ -31,6 +32,7 @@ RSpec.describe Merchant, type: :model do
         expect(@merchant1.items_ready_to_ship).to eq([@invoice_item2, @invoice_item3])
       end
     end
+    
     describe "enabled/disabled items" do
       before(:each) do
         @merchant1 = Merchant.create!(name: "Klein, Rempel and Jones")
