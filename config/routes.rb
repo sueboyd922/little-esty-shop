@@ -16,7 +16,11 @@ Rails.application.routes.draw do
   patch "merchants/:merchant_id/invoice_items/:invoice_item_id", to: "invoice_items#update"
 
   get 'merchants/:merchant_id/discounts', to: 'merchant_discounts#index'
+  get 'merchants/:merchant_id/discounts/new', to: 'merchant_discounts#new'
   get 'merchants/:merchant_id/discounts/:id', to: 'merchant_discounts#show'
+  post 'merchants/:merchant_id/discounts/new', to: 'merchant_discounts#create'
+
+  # resources :merchant_discounts, only: [:create, :new]
 
   namespace :admin do
     resources :merchants, only: [:index, :show, :new, :create, :edit, :update]

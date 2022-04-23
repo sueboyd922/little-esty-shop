@@ -27,4 +27,22 @@ RSpec.describe 'merchant discounts index page', type: :feature do
       expect(current_path).to eq("/merchants/#{merchants[1].id}/discounts/#{discount3.id}")
     end
   end
+
+  it 'can delete a discount' do
+    merchants = FactoryBot.create_list(:merchant, 2)
+
+    discount1 = merchants[0].discounts.create!(quantity: 2, percent_discount: 25)
+    discount2 = merchants[0].discounts.create!(quantity: 4, percent_discount: 30)
+    discount3 = merchants[1].discounts.create!(quantity: 2, percent_discount: 50)
+
+    visit "/merchants/#{merchant.id}/dashboard"
+
+    within ".discount-#{discount1.id}" do
+      click_on "Delete"
+    end
+    expect(current_path).to eq("/merchants/#{merchant.id}/dashboard")
+    expect(page).not_to have_content("25% off 2 of the same item")
+    expect(merchant.discounts).not_to include(discount1)
+  end
+
 end

@@ -1,0 +1,9 @@
+<h1>Create New Discount</h1>
+
+<%= form_with url: "/merchants/#{@discount.merchant.id}/discounts/new" do |form| %>
+<%= form.label :quantity, "# of items to trigger discount" %>
+<%= form.number_field :quantity, in: 1..2000, step: 1 %><br>
+<%= form.label :percent_discount, "Percent Discounted" %>
+<%= form.number_field :percent_discount, in: 1..99, step: 1 %><br>
+<%= form.submit "Add" %>
+<% end %>
