@@ -32,6 +32,7 @@ RSpec.describe Merchant, type: :model do
         expect(@merchant1.items_ready_to_ship).to eq([@invoice_item2, @invoice_item3])
       end
     end
+    
     describe "enabled/disabled items" do
       before(:each) do
         @merchant1 = Merchant.create!(name: "Klein, Rempel and Jones")

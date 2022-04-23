@@ -2,7 +2,7 @@
 
 <% @merchant.discounts.each_with_index do |dis, idx| %>
   <div class="discount-<%="#{dis.id}"%>">
-    <p><%= idx %>. <%= "#{dis.percent_discount}% off #{dis.quantity} of the same item" %>
+    <p><%= idx + 1 %>. <%= "#{dis.percent_discount}% off #{dis.quantity} of the same item" %>
     <%= button_to "Details", "/merchants/#{@merchant.id}/discounts/#{dis.id}", method: :get %>
     </p>
   </div>

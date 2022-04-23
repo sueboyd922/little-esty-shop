@@ -153,7 +153,7 @@ RSpec.describe 'merchant show page' do
 		expect(page).to have_content("25% off 2 of the same item")
 		expect(page).to have_content("30% off 4 of the same item")
 		expect(page).not_to have_content("50% off 2 of the same item")
-
+		
 		within ".discount-#{discount1.id}" do
 			click_on "Details"
 			expect(current_path).to eq("/merchants/#{merchants[0].id}/discounts/#{discount1.id}")
