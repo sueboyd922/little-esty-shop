@@ -35,7 +35,7 @@ RSpec.describe 'merchant discounts index page', type: :feature do
     discount2 = merchants[0].discounts.create!(quantity: 4, percent_discount: 30)
     discount3 = merchants[1].discounts.create!(quantity: 2, percent_discount: 50)
 
-    visit "/merchants/#{merchant.id}/dashboard"
+    visit "/merchants/#{merchants[0].id}/dashboard"
 
     within ".discount-#{discount1.id}" do
       click_on "Delete"
