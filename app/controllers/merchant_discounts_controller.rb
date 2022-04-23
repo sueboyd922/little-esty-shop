@@ -19,6 +19,7 @@ class MerchantDiscountsController < ApplicationController
   end
 
   def edit
+    @discount = Discount.find(params[:id])
   end
 
   def destroy

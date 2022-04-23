@@ -10,7 +10,7 @@ RSpec.describe "merchant discounts edit page", type: :feature do
     visit "/merchants/#{merchants[0].id}/discounts/#{discount1.id}"
     click_on "Edit"
     expect(current_path).to eq("/merchants/#{merchants[0].id}/discounts/#{discount1.id}/edit")
-
+    
     expect(page).to have_field(:quantity, with: 5)
     expect(page).to have_field(:percent_discount, with: 10)
 
