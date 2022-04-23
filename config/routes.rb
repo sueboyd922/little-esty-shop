@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   post 'merchants/:merchant_id/discounts/new', to: 'merchant_discounts#create'
   delete 'merchants/:merchant_id/discounts/:id', to: 'merchant_discounts#destroy'
   get 'merchants/:merchant_id/discounts/:id/edit', to: "merchant_discounts#edit"
+  patch 'merchants/:merchant_id/discounts/:id/edit', to: 'merchant_discounts#update'
 
   # resources :merchant_discounts, only: [:create, :new]
 
