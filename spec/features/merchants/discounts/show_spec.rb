@@ -10,7 +10,7 @@ RSpec.describe 'merchant discounts show page' do
     visit "/merchants/#{merchants[0].id}/discounts/#{discount1.id}"
     expect(page).to have_content("Discount: 10%")
     expect(page).to have_content("Item Count: 5")
-    expect(page).to have_content("Discount: 15%")
-    expect(page).to have_content("Item Count: 4")
+    expect(page).not_to have_content("Discount: 15%")
+    expect(page).not_to have_content("Item Count: 4")
   end
 end
