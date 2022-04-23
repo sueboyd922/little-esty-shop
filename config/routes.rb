@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'merchants/:merchant_id/discounts/new', to: 'merchant_discounts#new'
   get 'merchants/:merchant_id/discounts/:id', to: 'merchant_discounts#show'
   post 'merchants/:merchant_id/discounts/new', to: 'merchant_discounts#create'
+  delete 'merchants/:merchant_id/discounts/:id', to: 'merchant_discounts#destroy'
 
   # resources :merchant_discounts, only: [:create, :new]
 

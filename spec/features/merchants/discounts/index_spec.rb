@@ -35,14 +35,15 @@ RSpec.describe 'merchant discounts index page', type: :feature do
     discount2 = merchants[0].discounts.create!(quantity: 4, percent_discount: 30)
     discount3 = merchants[1].discounts.create!(quantity: 2, percent_discount: 50)
 
-    visit "/merchants/#{merchants[0].id}/dashboard"
+    visit "/merchants/#{merchants[0].id}/discounts"
 
     within ".discount-#{discount1.id}" do
       click_on "Delete"
     end
-    expect(current_path).to eq("/merchants/#{merchant.id}/dashboard")
+    expect(current_path).to eq("/merchants/#{merchants[0].id}/discounts")
     expect(page).not_to have_content("25% off 2 of the same item")
-    expect(merchant.discounts).not_to include(discount1)
+    expect(page).to have_content("30% off 4 of the same item")
+    expect(Discount.where(id: discount1.id).exists?).to be false
   end
 
 end

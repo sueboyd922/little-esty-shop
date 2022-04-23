@@ -1,9 +1,11 @@
 <h1>My Discounts</h1>
 
 <% @merchant.discounts.each_with_index do |dis, idx| %>
+<%# <% require "pry"; binding.pry %> %>
   <div class="discount-<%="#{dis.id}"%>">
     <p><%= idx + 1 %>. <%= "#{dis.percent_discount}% off #{dis.quantity} of the same item" %>
     <%= button_to "Details", "/merchants/#{@merchant.id}/discounts/#{dis.id}", method: :get %>
+    <%= button_to "Delete", "/merchants/#{@merchant.id}/discounts/#{dis.id}", method: :delete %>
     </p>
   </div>
 <% end %>
