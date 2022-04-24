@@ -9,6 +9,7 @@ class Merchant < ApplicationRecord
   validates_presence_of(:name)
    validates_presence_of(:status)
   enum status: {"enabled" => 0, "disabled" => 1}
+
   def self.top_5_merchants
      merchants_with_valid_invoices = self.joins(invoices: :transactions)
                                            .where('transactions.result = 0')

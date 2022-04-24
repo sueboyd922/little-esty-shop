@@ -38,4 +38,5 @@ class MerchantDiscountsController < ApplicationController
     def discount_params
       params.permit(:percent_discount, :quantity)
     end
+
 end

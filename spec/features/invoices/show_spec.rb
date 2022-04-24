@@ -33,7 +33,7 @@ RSpec.describe 'invoice show page' do
 
   it "display invoice item information on the invoice show page" do
     visit "/merchants/#{@merchant1.id}/invoices/#{@invoice3.id}"
-    
+
     within("#invoice_item-#{@invoice_item4.id}") do
       expect(page).to have_content(@invoice_item4.quantity)
       expect(page).to have_content('$100.00')
