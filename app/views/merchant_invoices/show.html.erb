@@ -15,7 +15,7 @@
     <p>Item Quantity Ordered: <%= invoice_item.quantity %></p>
     <p>Item Sold For: $<%='%.02f' % (invoice_item.unit_price.to_f/100) %></p>
     <% if invoice_item.has_discount? %>
-    <p>Discounts: <%= link_to "Applied", "/merchants/#{item.merchant.id}/discounts/#{invoice_item.discount.id}" %>
+    <p>Discounts: <%= link_to "Applied", "/merchants/#{item.merchant.id}/discounts/#{invoice_item.applied_discount.id}" %>
     <% else %>
     <p>Discounts: None</p>
     <% end %>
