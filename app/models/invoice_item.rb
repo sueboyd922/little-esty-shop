@@ -14,10 +14,10 @@ class InvoiceItem < ApplicationRecord
   enum status: {"packaged" => 0, "pending" => 1, "shipped" => 2}
 
   def has_discount?
-    !discount.nil?
+    !applied_discount.nil?
   end
 
-  def discount
+  def applied_discount
     discounts.where("quantity <= ?", self.quantity)
               .order(percent_discount: :desc)
               .limit(1).first
