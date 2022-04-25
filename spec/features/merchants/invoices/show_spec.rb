@@ -19,11 +19,12 @@ RSpec.describe 'merchant invoices show page' do
     invoice_item3 = InvoiceItem.create!(item: item3, invoice: invoice, quantity: 7, unit_price: 1550, status: "pending")
 
     discount = merchant1.discounts.create!(quantity: 5, percent_discount: 10)
+    discount2 = merchant2.discounts.create!(quantity: 10, percent_discount: 15)
 
     visit "merchants/#{merchant1.id}/invoices/#{invoice.id}"
 
-    expect(page).to have_content("Total Revenue After Discount: $253.50")
-    expect(page).not_to have_content("Total Revenue After Discount: $270.00")
+    expect(page).to have_content("Total Revenue After Discount: $257.00")
+    expect(page).not_to have_content("Total Revenue After Discount: $273.50")
 
   end
 end
