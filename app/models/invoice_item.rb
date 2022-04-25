@@ -18,9 +18,8 @@ class InvoiceItem < ApplicationRecord
   end
 
   def discount
-    x = self.quantity
-    discounts.where("quantity <= ?", x)
-    .order(percent_discount: :desc)
-    .limit(1).first
+    discounts.where("quantity <= ?", self.quantity)
+              .order(percent_discount: :desc)
+              .limit(1).first
   end
 end

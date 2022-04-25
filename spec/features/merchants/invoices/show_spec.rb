@@ -83,18 +83,19 @@ RSpec.describe 'merchant invoices show page' do
       expect(current_path).to eq("/merchants/#{merchant1.id}/discounts/#{discount.id}")
     end
 
-    # within ".invoice_item-#{invoice_item3.id}" do
-    #   visit "merchants/#{merchant1.id}/invoices/#{invoice.id}"
-    #   expect(page).not_to have_content("Discounts: None")
-    #   click_on("Applied")
-    #   expect(current_path).to eq("/merchants/#{merchant2.id}/discounts/#{discount2.id}")
-    # end
+    visit "/merchants/#{merchant1.id}/invoices/#{invoice.id}"
 
-    visit "merchants/#{merchant1.id}/invoices/#{invoice.id}"
+    within "#invoice_item-#{invoice_item3.id}" do
+      expect(page).not_to have_content("Discounts: None")
+      click_on("Applied")
+      expect(current_path).to eq("/merchants/#{merchant2.id}/discounts/#{discount2.id}")
+    end
+
+    visit "/merchants/#{merchant1.id}/invoices/#{invoice.id}"
+
     within "#invoice_item-#{invoice_item2.id}" do
       expect(page).not_to have_button("Applied")
       expect(page).to have_content("Discounts: None")
     end
   end
-
 end
