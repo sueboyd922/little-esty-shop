@@ -76,7 +76,7 @@ RSpec.describe 'merchant invoices show page' do
 
 
     visit "merchants/#{merchant1.id}/invoices/#{invoice.id}"
-  
+
     within "#invoice_item-#{invoice_item1.id}" do
       expect(page).not_to have_content("Discounts: None")
       click_on("Applied")
@@ -91,7 +91,7 @@ RSpec.describe 'merchant invoices show page' do
     # end
 
     visit "merchants/#{merchant1.id}/invoices/#{invoice.id}"
-    within ".invoice_item-#{invoice_item2.id}" do
+    within "#invoice_item-#{invoice_item2.id}" do
       expect(page).not_to have_button("Applied")
       expect(page).to have_content("Discounts: None")
     end
