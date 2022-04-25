@@ -22,4 +22,5 @@ class InvoiceItem < ApplicationRecord
               .order(percent_discount: :desc)
               .limit(1).first
   end
+
 end

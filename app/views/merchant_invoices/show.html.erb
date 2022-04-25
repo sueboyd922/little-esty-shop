@@ -4,29 +4,32 @@
 <p>Invoice Status: <%= @invoice.status %></p>
 <p>Invoice Creation Date: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
 <p>Customer Name: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
-<p>Total Revenue: $<%= '%.02f' % @invoice.total_revenue %></p>
-<p>Total Revenue After Discount: $<%= '%.02f' % @invoice.revenue_after_discount %></p>
+<p>Total Revenue: $<%= '%.02f' % @invoice.merchant_revenue(@merchant.id) %></p>
+<p>Total Revenue After Discount: $<%= '%.02f' % (@invoice.merchant_revenue(@merchant.id) - @invoice.discount_amount) %></p>
 <h1>Item Information</h1>
 
-<% @invoice.items.each do |item| %>
-  <% item.invoice_items.each do |invoice_item| %>
+<% @invoice.merchant_items(@merchant.id).each do |invoice_item| %>
+
   <section id = "invoice_item-<%= invoice_item.id %>">
-    <p>Item Name: <%= item.name %></p>
+
+    <p>Item Name: <%= invoice_item.item.name %></p>
     <p>Item Quantity Ordered: <%= invoice_item.quantity %></p>
     <p>Item Sold For: $<%='%.02f' % (invoice_item.unit_price.to_f/100) %></p>
+
     <% if invoice_item.has_discount? %>
-    <p>Discounts: <%= link_to "Applied", "/merchants/#{item.merchant.id}/discounts/#{invoice_item.applied_discount.id}" %>
+      <p>Discounts: <%= link_to "Applied", "/merchants/#{@merchant.id}/discounts/#{invoice_item.applied_discount.id}" %>
     <% else %>
-    <p>Discounts: None</p>
+      <p>Discounts: None</p>
     <% end %>
+
     <div class = 'status'>
-    <%= form_with url: "/merchants/#{item.merchant.id}/invoice_items/#{invoice_item.id}", method: :patch, local:true do |f| %>
-    <%= f.label :time_balance, "Invoice Item Status"%>
-    <%= f.select(:status, options_for_select([['Packaged', 'packaged'], ['Shipped','shipped'], ['Pending', 'pending']], invoice_item.status)) %>
-    <%= f.submit 'Update Item Status' %>
+      <%= form_with url: "/merchants/#{@merchant.id}/invoice_items/#{invoice_item.id}", method: :patch, local:true do |f| %>
+        <%= f.label :time_balance, "Invoice Item Status"%>
+        <%= f.select(:status, options_for_select([['Packaged', 'packaged'], ['Shipped','shipped'], ['Pending', 'pending']], invoice_item.status)) %>
+        <%= f.submit 'Update Item Status' %>
       <%end %>
     </div>
+
     <br>
-</section>
-  <% end %>
+  </section>
 <% end %>

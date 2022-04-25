@@ -22,9 +22,9 @@ RSpec.describe 'merchant invoices show page' do
     discount2 = merchant2.discounts.create!(quantity: 10, percent_discount: 15)
 
     visit "merchants/#{merchant1.id}/invoices/#{invoice.id}"
-
-    expect(page).to have_content("Total Revenue After Discount: $257.00")
-    expect(page).not_to have_content("Total Revenue After Discount: $273.50")
+    save_and_open_page
+    expect(page).to have_content("Total Revenue After Discount: $148.50")
+    expect(page).not_to have_content("Total Revenue After Discount: $165.00")
   end
 
   it 'applies the higher percentage discount' do
@@ -50,8 +50,8 @@ RSpec.describe 'merchant invoices show page' do
 
     visit "merchants/#{merchant1.id}/invoices/#{invoice.id}"
 
-    expect(page).to have_content("Total Revenue After Discount: $315.50")
-    expect(page).not_to have_content("Total Revenue After Discount: $384.50")
+    expect(page).to have_content("Total Revenue After Discount: $207.00")
+    expect(page).not_to have_content("Total Revenue After Discount: $230.00")
   end
 
   it 'shows a link to the discount show page if the item has a discount applied' do
@@ -74,21 +74,12 @@ RSpec.describe 'merchant invoices show page' do
     discount = merchant1.discounts.create!(quantity: 5, percent_discount: 10)
     discount2 = merchant2.discounts.create!(quantity: 15, percent_discount: 15)
 
-
     visit "merchants/#{merchant1.id}/invoices/#{invoice.id}"
 
     within "#invoice_item-#{invoice_item1.id}" do
       expect(page).not_to have_content("Discounts: None")
       click_on("Applied")
       expect(current_path).to eq("/merchants/#{merchant1.id}/discounts/#{discount.id}")
-    end
-
-    visit "/merchants/#{merchant1.id}/invoices/#{invoice.id}"
-
-    within "#invoice_item-#{invoice_item3.id}" do
-      expect(page).not_to have_content("Discounts: None")
-      click_on("Applied")
-      expect(current_path).to eq("/merchants/#{merchant2.id}/discounts/#{discount2.id}")
     end
 
     visit "/merchants/#{merchant1.id}/invoices/#{invoice.id}"
