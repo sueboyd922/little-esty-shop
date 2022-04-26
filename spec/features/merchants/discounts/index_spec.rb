@@ -10,6 +10,7 @@ RSpec.describe 'merchant discounts index page', type: :feature do
 
     visit "/merchants/#{merchants[0].id}/dashboard"
     click_on "My Discounts"
+
     expect(current_path).to eq("/merchants/#{merchants[0].id}/discounts")
     expect(page).to have_content("25% off 2 of the same item")
     expect(page).to have_content("30% off 4 of the same item")
@@ -44,5 +45,15 @@ RSpec.describe 'merchant discounts index page', type: :feature do
     expect(page).not_to have_content("25% off 2 of the same item")
     expect(page).to have_content("30% off 4 of the same item")
     expect(Discount.where(id: discount1.id).exists?).to be false
+  end
+
+  it 'shows the upcoming hoidays and dates' do
+    merchants = FactoryBot.create_list(:merchant, 2)
+
+    visit "/merchants/#{merchants[0].id}/discounts"
+
+    expect(page).to have_content("Memorial Day")
+    expect(page).to have_content("Juneteenth")
+    expect(page).to have_content("Independence Day")
   end
 end
