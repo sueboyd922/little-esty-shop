@@ -128,14 +128,14 @@ RSpec.describe 'merchant show page' do
 			expect(page).to have_content(6)
 		end
 
-		within("#top_5-#{cust2.id}") do
-			expect(page).to have_content(cust2.first_name)
-			expect(page).to have_content(cust2.last_name)
-			expect(page).to have_content(2)
+		within("#top_5-#{cust7.id}") do
+			expect(page).to have_content(cust7.first_name)
+			expect(page).to have_content(cust7.last_name)
+			expect(page).to have_content(4)
 		end
 
-		expect(page).to_not have_content(cust7.first_name)
-		expect(page).to_not have_content(cust7.last_name)
+		expect(page).to_not have_content(cust2.first_name)
+		expect(page).to_not have_content(cust2.last_name)
 		expect(page).to_not have_content(cust4.first_name)
 		expect(page).to_not have_content(cust4.last_name)
 	end

@@ -29,7 +29,6 @@ class Merchant < ApplicationRecord
     where(status: 1)
   end
 
-
   def items_ready_to_ship
     InvoiceItem.where(item: items).where.not(status: 2)
   end
@@ -43,12 +42,19 @@ class Merchant < ApplicationRecord
   end
 
   def top_5_customers
-    customers.joins(:transactions)
-      .where("transactions.result = 0 AND invoices.status = 2")
-      .select("customers.*, count(transactions.*) as transaction_count")
-      .group(:id)
-      .order(transaction_count: :desc)
-      .limit(5)
+    # customers.joins(:transactions)
+    #   .where("transactions.result = 0 AND invoices.status = 2")
+    #   .select("customers.*, count(transactions.*) as transaction_count")
+    #   .group(:id)
+    #   .order(transaction_count: :desc)
+    #   .limit(5)
+
+    transactions.joins(invoice: :customer)
+    .where(transactions: {result: 0})
+    .select("customers.*, count('transactions.result') as transaction_count")
+    .group("customers.id")
+    .order(transaction_count: :desc)
+    .limit(5)
   end
 
   def popular_items
