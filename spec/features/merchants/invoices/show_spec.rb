@@ -16,7 +16,7 @@ RSpec.describe 'merchant invoices show page' do
 
     invoice_item1 = InvoiceItem.create!(item: item1, invoice: invoice, quantity: 5, unit_price: 1300, status: "packaged")
     invoice_item2 = InvoiceItem.create!(item: item2, invoice: invoice, quantity: 5, unit_price: 2000, status: "shipped")
-    invoice_item3 = InvoiceItem.create!(item: item3, invoice: invoice, quantity: 7, unit_price: 1550, status: "pending")
+    invoice_item3 = InvoiceItem.create!(item: item3, invoice: invoice, quantity: 10, unit_price: 1550, status: "pending")
 
     discount = merchant1.discounts.create!(quantity: 5, percent_discount: 10)
     discount2 = merchant2.discounts.create!(quantity: 10, percent_discount: 15)

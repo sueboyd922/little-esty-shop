@@ -5,7 +5,7 @@
 <p>Invoice Creation Date: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
 <p>Customer Name: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
 <p>Total Revenue: $<%= '%.02f' % @invoice.merchant_revenue(@merchant.id) %></p>
-<p>Total Revenue After Discount: $<%= '%.02f' % (@invoice.merchant_revenue(@merchant.id) - @invoice.discount_amount) %></p>
+<p>Total Revenue After Discount: $<%= '%.02f' % @invoice.merchant_revenue_after_discount(@merchant.id) %></p>
 <h1>Item Information</h1>
 
 <% @invoice.merchant_items(@merchant.id).each do |invoice_item| %>

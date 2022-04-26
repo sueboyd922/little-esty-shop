@@ -126,11 +126,11 @@ RSpec.describe "admin invoices show page" do
     discount1 = merchant1.discounts.create!(quantity: 5, percent_discount: 10)
     discount2 = merchant1.discounts.create!(quantity: 10, percent_discount: 15)
     discount3 = merchant2.discounts.create!(quantity: 2, percent_discount: 50)
-    discount4 = merchant3.discounts.create!(quantity: 5, percent_discount: 10)
-    # require "pry"; binding.pry
+    discount4 = merchant3.discounts.create!(quantity: 10, percent_discount: 18)
 
     visit "/admin/invoices/#{invoice.id}"
+
     expect(page).to have_content("Total Revenue: $538.00")
-    expect(page).to have_content("Total Revenue After Discount: $503.00")
+    expect(page).to have_content("Total Revenue After Discount: $495.80")
   end
 end
