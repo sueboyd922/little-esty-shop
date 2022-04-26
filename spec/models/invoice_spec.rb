@@ -6,6 +6,7 @@ RSpec.describe Invoice, type: :model do
     it { should have_many(:invoice_items) }
     it { should have_many(:items).through(:invoice_items) }
     it { should have_many(:transactions) }
+    it { should have_many(:merchants).through(:items) }
   end
 
   describe "validations" do
@@ -71,12 +72,102 @@ RSpec.describe Invoice, type: :model do
         discount = merchant1.discounts.create!(quantity: 5, percent_discount: 10)
         discount = merchant1.discounts.create!(quantity: 10, percent_discount: 7)
         discount2 = merchant2.discounts.create!(quantity: 10, percent_discount: 15)
-        
+
         expect(invoice.revenue_after_discount).to eq(315.5)
       end
 
-    end
+      it '.merchant_items' do
+        merchant1 = Merchant.create!(name: "Joyce's Things")
+        merchant2 = Merchant.create!(name: "Samwise's Things")
 
+        item1 = merchant1.items.create!(name: "Bowtie", description: "it looks cool", unit_price: 1200)
+        item2 = merchant1.items.create!(name: "Earrings", description: "it looks cool", unit_price: 2000)
+
+        item3 = merchant2.items.create!(name: "Stuffed elephant", description: "fun for kids", unit_price: 1550)
+
+        customer = Customer.create!(first_name: "Jamie", last_name: "Personname")
+
+        invoice = customer.invoices.create(status: "in progress")
+
+        invoice_item1 = InvoiceItem.create!(item: item1, invoice: invoice, quantity: 10, unit_price: 1300, status: "packaged")
+        invoice_item2 = InvoiceItem.create!(item: item2, invoice: invoice, quantity: 5, unit_price: 2000, status: "shipped")
+        invoice_item3 = InvoiceItem.create!(item: item3, invoice: invoice, quantity: 7, unit_price: 1550, status: "pending")
+
+        expect(invoice.merchant_items(merchant1.id).to_a).to eq([invoice_item1, invoice_item2])
+        expect(invoice.merchant_items(merchant2.id).to_a).to eq([invoice_item3])
+      end
+
+      it '.merchant_revenue' do
+        merchant1 = Merchant.create!(name: "Joyce's Things")
+        merchant2 = Merchant.create!(name: "Samwise's Things")
+
+        item1 = merchant1.items.create!(name: "Bowtie", description: "it looks cool", unit_price: 1200)
+        item2 = merchant1.items.create!(name: "Earrings", description: "it looks cool", unit_price: 2000)
+
+        item3 = merchant2.items.create!(name: "Stuffed elephant", description: "fun for kids", unit_price: 1550)
+
+        customer = Customer.create!(first_name: "Jamie", last_name: "Personname")
+
+        invoice = customer.invoices.create(status: "in progress")
+
+        invoice_item1 = InvoiceItem.create!(item: item1, invoice: invoice, quantity: 10, unit_price: 1300, status: "packaged")
+        invoice_item2 = InvoiceItem.create!(item: item2, invoice: invoice, quantity: 5, unit_price: 2000, status: "shipped")
+        invoice_item3 = InvoiceItem.create!(item: item3, invoice: invoice, quantity: 7, unit_price: 1550, status: "pending")
+
+        expect(invoice.merchant_revenue(merchant1)).to eq(230.0)
+        expect(invoice.merchant_revenue(merchant2)).to eq(108.5)
+      end
+
+      it '.merchant_discount_amount' do
+        merchant1 = Merchant.create!(name: "Joyce's Things")
+        merchant2 = Merchant.create!(name: "Samwise's Things")
+
+        item1 = merchant1.items.create!(name: "Bowtie", description: "it looks cool", unit_price: 1200)
+        item2 = merchant1.items.create!(name: "Earrings", description: "it looks cool", unit_price: 2000)
+
+        item3 = merchant2.items.create!(name: "Stuffed elephant", description: "fun for kids", unit_price: 1550)
+
+        customer = Customer.create!(first_name: "Jamie", last_name: "Personname")
+
+        invoice = customer.invoices.create(status: "in progress")
+
+        invoice_item1 = InvoiceItem.create!(item: item1, invoice: invoice, quantity: 10, unit_price: 1300, status: "packaged")
+        invoice_item2 = InvoiceItem.create!(item: item2, invoice: invoice, quantity: 5, unit_price: 2000, status: "shipped")
+        invoice_item3 = InvoiceItem.create!(item: item3, invoice: invoice, quantity: 7, unit_price: 1550, status: "pending")
+
+        discount = merchant1.discounts.create!(quantity: 5, percent_discount: 10)
+        discount = merchant1.discounts.create!(quantity: 10, percent_discount: 7)
+        discount2 = merchant2.discounts.create!(quantity: 10, percent_discount: 15)
+
+        expect(invoice.merchant_discount_amount(merchant1.id)).to eq(23.0)
+        expect(invoice.merchant_discount_amount(merchant2.id)).to eq(0)
+      end
+
+      it '.merchant_revenue_after_discount' do
+        merchant1 = Merchant.create!(name: "Joyce's Things")
+        merchant2 = Merchant.create!(name: "Samwise's Things")
+
+        item1 = merchant1.items.create!(name: "Bowtie", description: "it looks cool", unit_price: 1200)
+        item2 = merchant1.items.create!(name: "Earrings", description: "it looks cool", unit_price: 2000)
+
+        item3 = merchant2.items.create!(name: "Stuffed elephant", description: "fun for kids", unit_price: 1550)
+
+        customer = Customer.create!(first_name: "Jamie", last_name: "Personname")
+
+        invoice = customer.invoices.create(status: "in progress")
+
+        invoice_item1 = InvoiceItem.create!(item: item1, invoice: invoice, quantity: 10, unit_price: 1300, status: "packaged")
+        invoice_item2 = InvoiceItem.create!(item: item2, invoice: invoice, quantity: 5, unit_price: 2000, status: "shipped")
+        invoice_item3 = InvoiceItem.create!(item: item3, invoice: invoice, quantity: 7, unit_price: 1550, status: "pending")
+
+        discount = merchant1.discounts.create!(quantity: 5, percent_discount: 10)
+        discount = merchant1.discounts.create!(quantity: 10, percent_discount: 7)
+        discount2 = merchant2.discounts.create!(quantity: 10, percent_discount: 15)
+
+        expect(invoice.merchant_revenue_after_discount(merchant1.id)).to eq(207.0)
+        expect(invoice.merchant_revenue_after_discount(merchant2.id)).to eq(108.5)
+      end
+    end
 
   describe "class methods" do
     describe '#not_completed' do
