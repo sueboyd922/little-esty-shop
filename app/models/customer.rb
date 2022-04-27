@@ -1,6 +1,4 @@
 class Customer < ApplicationRecord
-
-
   has_many :invoices, dependent: :destroy
   has_many :invoice_items, through: :invoices
   has_many :transactions, through: :invoices
@@ -16,5 +14,4 @@ class Customer < ApplicationRecord
    .order(num_of_transactions: :desc)
    .limit(5)
  end
-
 end

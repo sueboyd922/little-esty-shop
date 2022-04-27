@@ -15,8 +15,13 @@ class MerchantDiscountsController < ApplicationController
 
   def create
     merchant = Merchant.find(params[:merchant_id])
-    merchant.discounts.create(discount_params)
-    redirect_to "/merchants/#{merchant.id}/discounts"
+    @discount = merchant.discounts.new(discount_params)
+    if @discount.save
+      redirect_to "/merchants/#{merchant.id}/discounts"
+    else
+      flash[:alert] = "Error: #{error_message(@discount.errors)}"
+      render :new
+    end
   end
 
   def edit
@@ -39,5 +44,4 @@ class MerchantDiscountsController < ApplicationController
     def discount_params
       params.permit(:percent_discount, :quantity)
     end
-
 end

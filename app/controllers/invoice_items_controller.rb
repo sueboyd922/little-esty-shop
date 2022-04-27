@@ -1,6 +1,5 @@
 class InvoiceItemsController < ApplicationController
 
-
   def update
     invoice_item = InvoiceItem.find(params[:invoice_item_id])
     invoice_item.update(invoice_item_params)
@@ -8,7 +7,7 @@ class InvoiceItemsController < ApplicationController
   end
 
 private
-  def invoice_item_params 
+  def invoice_item_params
     params.permit(:status)
   end
 end

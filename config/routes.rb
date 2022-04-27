@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   patch 'merchants/:merchant_id/discounts/:id/edit', to: 'merchant_discounts#update'
 
   # resources :merchant_discounts, only: [:create, :new]
+  # resources :merchant_discounts
 
   namespace :admin do
     resources :merchants, only: [:index, :show, :new, :create, :edit, :update]

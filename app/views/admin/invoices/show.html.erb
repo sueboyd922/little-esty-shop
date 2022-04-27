@@ -3,13 +3,11 @@
 <p><strong>Customer Name: </strong><%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
 
 <p><strong>Status: </strong><%= @invoice.status %></p>
+
 <%= form_with url: "/admin/invoices/#{@invoice.id}", method: :patch, local: true do |form| %>
-<p><%= form.select(:status, [['Cancelled', 'cancelled'], ['In Progress', 'in progress'], ['Completed', 'completed']], selected: @invoice.status) %></p>
-
-    <%= form.submit "Update Invoice Status" %>
-  <% end %>
-
-
+  <%= form.select(:status, [['Cancelled', 'cancelled'], ['In Progress', 'in progress'], ['Completed', 'completed']], selected: @invoice.status) %>
+  <%= form.submit "Update Invoice Status" %>
+<% end %>
 
 <p><strong>Created at: </strong><%= @invoice.created_at.strftime("%A, %B %d, %Y")%></p>
 

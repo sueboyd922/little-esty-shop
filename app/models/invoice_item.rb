@@ -4,7 +4,6 @@ class InvoiceItem < ApplicationRecord
   has_one :merchant, through: :item
   has_many :discounts, through: :merchant
 
-
   validates_presence_of :quantity, :unit_price, :status
   validates :quantity, numericality: true
   validates :quantity, numericality: {only_integer: true, greater_than: 0}
@@ -22,5 +21,4 @@ class InvoiceItem < ApplicationRecord
               .order(percent_discount: :desc)
               .limit(1).first
   end
-
 end

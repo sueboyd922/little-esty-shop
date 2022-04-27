@@ -17,7 +17,7 @@ RSpec.describe "merchants discounts new page", type: :feature do
     expect(page).to have_content("22% off 5 of the same item")
   end
 
-  xit 'does not allow invalid inputs' do
+  it 'does not allow invalid inputs' do
     merchant = FactoryBot.create_list(:merchant, 1).first
     visit "/merchants/#{merchant.id}/discounts/new"
 
@@ -26,7 +26,7 @@ RSpec.describe "merchants discounts new page", type: :feature do
     click_on "Add"
 
 
-    expect(current_path).to eq("/merchants/#{merchant.id}/discounts")
-    expect(page).to have_content("Please enter a number 1-99")
+    expect(current_path).to eq("/merchants/#{merchant.id}/discounts/new")
+    expect(page).to have_content("Error: Percent discount is not included in the list")
   end
 end
